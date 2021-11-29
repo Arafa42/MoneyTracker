@@ -7,8 +7,10 @@ public class User {
     private String birthday;
     private String sex;
     private String address;
+    private Integer id;
 
-    public User(String name, String surname, String birthday, String sex, String address){
+    public User(Integer id,String name, String surname, String birthday, String sex, String address){
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
@@ -16,6 +18,8 @@ public class User {
         this.address = address;
     }
 
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getSurname() { return surname; }
@@ -27,14 +31,21 @@ public class User {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
+
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }
+
+
+
+
+
 }

@@ -12,7 +12,6 @@ public class RegisterEntry {
     public RegisterEntry(boolean checkedIn)
     {
         this.checkedIn = checkedIn;
-
         Calendar calendar = Calendar.getInstance();
         this.hours = calendar.get(Calendar.HOUR_OF_DAY);
         this.minutes = calendar.get(Calendar.MINUTE);
@@ -23,17 +22,14 @@ public class RegisterEntry {
     {
         return checkedIn;
     }
-
     public int getHours()
     {
         return hours;
     }
-
     public int getMinutes()
     {
         return minutes;
     }
-
     public int getSeconds()
     {
         return seconds;
@@ -43,15 +39,8 @@ public class RegisterEntry {
     public String toString()
     {
         String status;
-
-        if(this.checkedIn)
-        {
-            status = "in";
-        } else
-        {
-            status = "out";
-        }
-
+        if(this.checkedIn) { status = "in"; }
+        else { status = "out"; }
         return String.format("checked %s at %02d:%02d:%02d", status, getHours(), getMinutes(), getSeconds());
     }
 

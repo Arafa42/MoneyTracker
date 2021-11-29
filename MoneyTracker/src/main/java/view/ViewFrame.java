@@ -195,10 +195,11 @@ public class ViewFrame extends JFrame implements ActionListener {
 
             DatabasePersons personsDB = PersonsDB.getInstance();
             UserController userController = new UserController(personsDB);
-            System.out.println(userController.getAllUsers());
-            User newUser = new User(tname.getText(),tsurName.getText(),date.getSelectedItem()+"/"+month.getSelectedItem()+"/"+year.getSelectedItem(),newGender,tadd.getText());
+            User newUser = new User(UserController.id,tname.getText(),tsurName.getText(),date.getSelectedItem()+"/"+month.getSelectedItem()+"/"+year.getSelectedItem(),newGender,tadd.getText());
             userController.addUser(newUser);
-            lst.addElement(userController.getAllUsers().get(0).getName().toString() + " " + userController.getAllUsers().get(0).getSurname().toString());
+            //System.out.println(userController.getAllUsersSortedById());
+            System.out.println(userController.sortJsonArr());
+            lst.addElement(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
         }
 
         //RESET FORM

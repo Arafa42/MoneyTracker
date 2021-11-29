@@ -8,5 +8,5 @@ import java.util.List;
 public interface IUser {
     void addUser(User u);
     void removeUser(User u);
-    List<User> getAllUsers();
+    List<User> getAllUsersSortedById();
 }
