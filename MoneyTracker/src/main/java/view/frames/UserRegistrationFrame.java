@@ -1,9 +1,12 @@
 package view.frames;
 
 import controller.UserController;
+import observers.DatabaseObserver;
 import database.DatabasePersons;
 import database.PersonsDB;
 import model.User;
+import observers.UserCreationObserver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -205,6 +208,11 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
             else{newGender = "Female";}
 
             //GET ALL USERS FROM DB AND LIST THEM IN GUI
+
+            DatabaseObserver databaseObserver = new DatabaseObserver();
+            UserCreationObserver userCreationObserver = new UserCreationObserver();
+            personsDB.addObserver(databaseObserver);
+            personsDB.addObserver(userCreationObserver);
 
             User newUser = new User(tname.getText(),tsurName.getText(),date.getSelectedItem()+"/"+month.getSelectedItem()+"/"+year.getSelectedItem(),newGender,tadd.getText(),0.0);
             userController.addUser(newUser);

@@ -1,9 +1,7 @@
 package controller;
-
 import database.DatabasePersons;
 import model.User;
 import register_entry.RegisterEntry;
-import java.util.*;
 import java.util.List;
 
 public class UserController implements IUser{
@@ -30,7 +28,6 @@ public class UserController implements IUser{
 
     @Override
     public List<User> getAllUsersSortedById() {
-       // return sortJsonArr();
         return database.sortJsonArr();
     }
 
@@ -39,7 +36,6 @@ public class UserController implements IUser{
         RegisterEntry registerEntry = new RegisterEntry(false);
         database.deleteUserById(id,registerEntry);
     }
-
 
 
 }

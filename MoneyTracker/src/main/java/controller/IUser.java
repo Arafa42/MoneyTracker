@@ -1,8 +1,5 @@
 package controller;
 import model.User;
-import register_entry.RegisterEntry;
-
-import java.util.HashMap;
 import java.util.List;
 
 public interface IUser {

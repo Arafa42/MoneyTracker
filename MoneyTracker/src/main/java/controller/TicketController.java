@@ -1,9 +1,7 @@
 package controller;
-import database.DatabasePersons;
 import database.DatabaseTickets;
 import model.Ticket;
 import register_entry.RegisterEntry;
-
 import java.util.List;
 
 public class TicketController implements ITicket{

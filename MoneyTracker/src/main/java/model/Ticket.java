@@ -17,6 +17,14 @@ public class Ticket {
         this.unevenSplitAmount = unevenSplitAmount;
     }
 
+    public Ticket() {
+
+    }
+
+    public Ticket(String name) {
+        this.name = name;
+    }
+
     public Double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
     public String getName() { return name; }

@@ -69,5 +69,4 @@ public class PersonsDB extends DatabasePersons{
         return userlist;
     }
 
-
 }
