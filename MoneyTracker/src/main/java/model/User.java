@@ -8,14 +8,15 @@ public class User {
     private String sex;
     private String address;
     private Integer id;
+    private Double amountToPay;
 
-    public User(Integer id,String name, String surname, String birthday, String sex, String address){
-        this.id = id;
+    public User(String name, String surname, String birthday, String sex, String address, Double amountToPay){
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
         this.sex = sex;
         this.address = address;
+        this.amountToPay = amountToPay;
     }
 
     public Integer getId() { return id; }
@@ -30,22 +31,20 @@ public class User {
     public void setSex(String sex) { this.sex = sex; }
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    public Double getAmountToPay() { return amountToPay; }
+    public void setAmountToPay(Double amountToPay) { this.amountToPay = amountToPay; }
 
 
     @Override
     public String toString() {
         return "User{" +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", id=" + id +
+                ", amountToPay=" + amountToPay +
                 '}';
     }
-
-
-
-
-
 }

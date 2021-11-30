@@ -27,7 +27,6 @@ public class PersonsDB extends DatabasePersons{
     }
 
 
-
     @Override
     public void addEntry(User user, RegisterEntry re) {
         this.database.put(user,re);

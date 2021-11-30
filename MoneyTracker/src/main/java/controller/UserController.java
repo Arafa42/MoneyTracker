@@ -32,7 +32,6 @@ public class UserController implements IUser{
     public List<User> getAllUsersSortedById() { return sortJsonArr(); }
 
 
-
     public List<User> sortJsonArr(){
         List<User> list = new ArrayList<User>();
         list = database.getAllPersons();
@@ -44,10 +43,6 @@ public class UserController implements IUser{
             };
             Collections.sort(list, comparator);
             return list;
-
     }
-
-
-
 
 }

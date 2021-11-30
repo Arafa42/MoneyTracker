@@ -1,22 +1,21 @@
 package database;
-
 import model.Ticket;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TicketsDB extends DatabaseTickets{
     private HashMap<Ticket, RegisterEntry> database;
     private static TicketsDB singletonijn;
 
     public static TicketsDB getInstance(){
-        if(singletonijn == null){
-            singletonijn = new TicketsDB();
-        }
+        if(singletonijn == null){ singletonijn = new TicketsDB(); }
         return singletonijn;
     }
 
+    public TicketsDB() { this.database = new HashMap<>(); }
 
     @Override
     public void addEntry(Ticket ticket, RegisterEntry registerEntry) {
@@ -28,5 +27,11 @@ public class TicketsDB extends DatabaseTickets{
     @Override
     public RegisterEntry getTicketEntry(Ticket ticket) {
         return this.database.getOrDefault(ticket, new RegisterEntryNull());
+    }
+
+    @Override
+    public List<Ticket> getAllTickets() {
+        ArrayList<Ticket> ticketList = new ArrayList<Ticket>(database.keySet());
+        return ticketList;
     }
 }
