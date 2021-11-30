@@ -9,4 +9,5 @@ public interface IUser {
     void addUser(User u);
     void removeUser(User u);
     List<User> getAllUsersSortedById();
+    void deleteUserById(int id);
 }

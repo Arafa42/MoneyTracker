@@ -17,8 +17,6 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
     private JLabel surName;
     private JTextField tname;
     private JTextField tsurName;
-    private JLabel mno;
-    private JTextField tmno;
     private JLabel gender;
     private JRadioButton male;
     private JRadioButton female;
@@ -31,8 +29,10 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
     private JTextArea tadd;
     private JButton sub;
     private JButton reset;
+    private JButton delUser;
     private DefaultListModel<String> lst = new DefaultListModel<>();
-    private JList<String> userList;
+    private JList userList;
+    private JPanel panel = new JPanel();
 
     private String dates[]
             = { "1", "2", "3", "4", "5",
@@ -172,15 +172,31 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
         c.add(reset);
 
         userList = new JList(lst);
-        userList.setSize(450,600);
+        userList.setSize(400,300);
         userList.setLocation(450,0);
         c.add(userList);
+
+        delUser = new JButton("Remove User");
+        delUser.setFont(new Font("Arial",Font.PLAIN,15));
+        delUser.setSize(150,20);
+        delUser.setLocation(250,330);
+        delUser.addActionListener(this);
+        c.add(delUser);
+
+        JScrollPane scrollPane = new JScrollPane(userList);
+        scrollPane.setVisible(true);
+        scrollPane.setSize(435,362);
+        scrollPane.setLocation(450,0);
+        c.add(scrollPane);
 
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        DatabasePersons personsDB = PersonsDB.getInstance();
+        UserController userController = new UserController(personsDB);
+
         if (e.getSource() == sub) {
 
             //GENDER CHECK
@@ -189,13 +205,13 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
             else{newGender = "Female";}
 
             //GET ALL USERS FROM DB AND LIST THEM IN GUI
-            DatabasePersons personsDB = PersonsDB.getInstance();
-            UserController userController = new UserController(personsDB);
+
             User newUser = new User(tname.getText(),tsurName.getText(),date.getSelectedItem()+"/"+month.getSelectedItem()+"/"+year.getSelectedItem(),newGender,tadd.getText(),0.0);
             userController.addUser(newUser);
             //System.out.println(userController.getAllUsersSortedById());
-            System.out.println(userController.sortJsonArr());
+            //System.out.println(userController.sortJsonArr());
             lst.addElement(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
+
         }
 
         //RESET FORM
@@ -208,6 +224,16 @@ public class UserRegistrationFrame extends JFrame implements ActionListener {
             month.setSelectedIndex(0);
             year.setSelectedIndex(0);
         }
+
+        else if(e.getSource() == delUser){
+            int index = userList.getSelectedIndex();
+            userController.deleteUserById(index);
+            lst.remove(index);
+         //   System.out.println("LALALALA : " + index);
+         //   System.out.println(userController.getAllUsersSortedById());
+
+        }
+
     }
 
 }

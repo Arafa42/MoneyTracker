@@ -11,5 +11,6 @@ public abstract class DatabasePersons extends Observable{
     public abstract void addEntry(User user, RegisterEntry re);
     public abstract RegisterEntry getEntry(User user);
     public abstract List<User> getAllPersons();
-
+    public abstract void deleteUserById(int id, RegisterEntry re);
+    public abstract List<User> sortJsonArr();
 }

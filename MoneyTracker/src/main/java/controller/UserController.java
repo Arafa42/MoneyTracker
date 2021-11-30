@@ -29,20 +29,17 @@ public class UserController implements IUser{
     }
 
     @Override
-    public List<User> getAllUsersSortedById() { return sortJsonArr(); }
-
-
-    public List<User> sortJsonArr(){
-        List<User> list = new ArrayList<User>();
-        list = database.getAllPersons();
-        Comparator<User> comparator = new Comparator<User>() {
-                @Override
-                public int compare(User o1, User o2) {
-                    return o1.getId() - o2.getId();
-                }
-            };
-            Collections.sort(list, comparator);
-            return list;
+    public List<User> getAllUsersSortedById() {
+       // return sortJsonArr();
+        return database.sortJsonArr();
     }
+
+    @Override
+    public void deleteUserById(int id) {
+        RegisterEntry registerEntry = new RegisterEntry(false);
+        database.deleteUserById(id,registerEntry);
+    }
+
+
 
 }
