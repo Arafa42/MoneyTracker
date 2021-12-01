@@ -1,8 +1,11 @@
 package view.frames;
 
+import controller.TicketController;
 import controller.UserController;
 import database.DatabasePersons;
+import database.DatabaseTickets;
 import database.PersonsDB;
+import database.TicketsDB;
 import factory.FactoryProvider;
 import factory.ITicketFactory;
 import model.Ticket;
@@ -15,6 +18,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainAppFrame extends JFrame implements ActionListener, CaretListener {
 
@@ -23,7 +28,7 @@ public class MainAppFrame extends JFrame implements ActionListener, CaretListene
     private JLabel ticketType;
     private JLabel amount;
     private JTextField t_ticketType;
-    private JTextField tsurName;
+    private JTextField tAmnt;
     private JLabel split;
     private JRadioButton even;
     private JRadioButton uneven;
@@ -33,7 +38,9 @@ public class MainAppFrame extends JFrame implements ActionListener, CaretListene
     private JButton delUser;
     private JButton updateUserDB;
     DatabasePersons personsDB = PersonsDB.getInstance();
+    DatabaseTickets ticketsDB = TicketsDB.getInstance();
     UserController userController = new UserController(personsDB);
+    TicketController ticketController = new TicketController(ticketsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     private DefaultListModel<String> lst = new DefaultListModel<>();
@@ -81,11 +88,11 @@ public class MainAppFrame extends JFrame implements ActionListener, CaretListene
         amount.setLocation(50, 120);
         c.add(amount);
 
-        tsurName = new JTextField();
-        tsurName.setFont(new Font("Arial", Font.PLAIN, 15));
-        tsurName.setSize(200, 20);
-        tsurName.setLocation(200, 120);
-        c.add(tsurName);
+        tAmnt = new JTextField();
+        tAmnt.setFont(new Font("Arial", Font.PLAIN, 15));
+        tAmnt.setSize(200, 20);
+        tAmnt.setLocation(200, 120);
+        c.add(tAmnt);
 
         split = new JLabel("Split");
         split.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -168,7 +175,6 @@ public class MainAppFrame extends JFrame implements ActionListener, CaretListene
 
 
 
-
         ITicketFactory factory = FactoryProvider.getCinemaTicketFactory();
         Ticket cinemaTicket = factory.getTicket("cinema");
         System.out.println(cinemaTicket);
@@ -192,13 +198,43 @@ public class MainAppFrame extends JFrame implements ActionListener, CaretListene
 
         if (e.getSource() == sub) {
 
+            //TICKET CREATION
+
+            int selectedUser = userList.getSelectedIndex();
+            List<User> allUsers = userController.getAllUsersSortedById();
+            Boolean iseven = true;
+            Ticket ticket = new Ticket();
+            String selectedTicket = ticketTypes.getSelectedItem().toString();
+            Double amount = Double.parseDouble(tAmnt.getText());
+            HashMap<User,Double> unevenhashmap = new HashMap<User,Double>();
+            HashMap<User,Double> unevenhashmapEmpty = new HashMap<User,Double>();
+
+            if(e.getSource() == even){ iseven = true; }
+            else if(e.getSource() == uneven){ iseven = false; }
+
+            ticket.setOwner(allUsers.get(selectedUser));
+            ticket.setName(ticketTypes.getSelectedItem().toString());
+            ticket.setTotalAmount(amount);
+            ticket.setSplitEven(iseven);
+
+            if(ticket.getSplitEven()){
+                //HASHMAP WITH VALUES
+                for(int i=0;i<textFields.size();i++) {
+                    unevenhashmap.put(allUsers.get(i),Double.parseDouble(textFields.get(i).getText()));
+                    ticket.setUnevenSplitAmount(unevenhashmap);
+                }
+            }
+            else{ ticket.setUnevenSplitAmount(unevenhashmapEmpty); }
+
+            ticketController.addTicket(ticket);
+            System.out.println(ticketController.getAllTickets());
         }
 
         //RESET FORM
         else if (e.getSource() == reset) {
             String def = "";
-            t_ticketType.setText(def);
-            tsurName.setText(def);
+            //t_ticketType.setText(def);
+            tAmnt.setText(def);
         }
 
         //DELETE TICKET MOET HIER GEBEUREN
