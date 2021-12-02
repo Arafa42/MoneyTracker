@@ -1,16 +1,41 @@
 package view;
-import com.sun.tools.javac.Main;
-import view.frames.*;
 
-public class ViewFrame {
 
-    private UserRegistrationFrame userRegistrationFrame;
-    private MainAppFrame mainAppFrame;
+
+import view.frames.MainPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ViewFrame extends JFrame {
+
+    MainPanel mainPanel;
+
+
+
+    public ViewFrame(){super("MoneyTracker");}
 
     public void initialize()
     {
-        userRegistrationFrame = new UserRegistrationFrame();
-        mainAppFrame = new MainAppFrame();
+        this.setSize(900, 500);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        GridLayout layout = new GridLayout();
+        this.setLayout(layout);
+
+
+
+        mainPanel = new MainPanel();
+
+        this.add(mainPanel);
+        this.setVisible(true);
     }
 
+    public void switchPanels(){
+        this.removeAll();
+    }
 }
