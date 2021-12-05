@@ -11,7 +11,10 @@ import factory.ITicketFactory;
 import model.Ticket;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainLeftPanel extends JPanel {
@@ -44,18 +47,19 @@ public class MainLeftPanel extends JPanel {
     private String[] ticketTypesList = new String[2];
 
     public MainLeftPanel(){
-        this.setLayout(null);
 
+        this.setLayout(null);
+        this.setBorder(new EmptyBorder(new Insets(0, 0, 0,     0)));
         title = new JLabel("CHOOSE USER AND CREATE TICKET");
         title.setFont(new Font("Arial", Font.BOLD, 18));
         title.setSize(350, 30);
-        title.setLocation(50, 20);
+        title.setLocation(10, 20);
         this.add(title);
 
         ticketType = new JLabel("Ticket");
         ticketType.setFont(new Font("Arial", Font.PLAIN, 15));
         ticketType.setSize(100, 20);
-        ticketType.setLocation(50, 100);
+        ticketType.setLocation(10, 100);
         this.add(ticketType);
 
 //        t_ticketType = new JTextField();
@@ -67,26 +71,26 @@ public class MainLeftPanel extends JPanel {
         amount = new JLabel("Amount");
         amount.setFont(new Font("Arial", Font.PLAIN, 15));
         amount.setSize(100, 20);
-        amount.setLocation(50, 120);
+        amount.setLocation(10, 120);
         this.add(amount);
 
         tAmnt = new JTextField();
         tAmnt.setFont(new Font("Arial", Font.PLAIN, 15));
         tAmnt.setSize(200, 20);
-        tAmnt.setLocation(200, 120);
+        tAmnt.setLocation(100, 120);
         this.add(tAmnt);
 
         split = new JLabel("Split");
         split.setFont(new Font("Arial", Font.PLAIN, 15));
         split.setSize(100, 20);
-        split.setLocation(50, 140);
+        split.setLocation(10, 140);
         this.add(split);
 
         even = new JRadioButton("even");
         even.setFont(new Font("Arial", Font.PLAIN, 15));
         even.setSelected(true);
         even.setSize(75, 20);
-        even.setLocation(200, 140);
+        even.setLocation(100, 140);
         //even.addActionListener(this);
         this.add(even);
 
@@ -94,7 +98,7 @@ public class MainLeftPanel extends JPanel {
         uneven.setFont(new Font("Arial", Font.PLAIN, 15));
         uneven.setSelected(false);
         uneven.setSize(80, 20);
-        uneven.setLocation(275, 140);
+        uneven.setLocation(175, 140);
         //uneven.addActionListener(this);
         this.add(uneven);
 
@@ -103,37 +107,41 @@ public class MainLeftPanel extends JPanel {
         gengp.add(uneven);
 
 
+        JPanel buttonPanel = new JPanel();
+
         sub = new JButton("Create ticket");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
-        sub.setSize(150, 20);
-        sub.setLocation(50, 300);
+        //sub.setSize(150, 20);
+        //sub.setLocation(10, 300);
 
-        this.add(sub);
+        buttonPanel.add(sub);
 
         reset = new JButton("Reset Form");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        reset.setSize(150, 20);
-        reset.setLocation(250, 300);
+        //reset.setSize(150, 20);
+        //reset.setLocation(150, 300);
 
-        this.add(reset);
+        buttonPanel.add(reset);
 
         delUser = new JButton("Remove Ticket");
         delUser.setFont(new Font("Arial",Font.PLAIN,15));
-        delUser.setSize(150,20);
-        delUser.setLocation(250,330);
+        //delUser.setSize(150,20);
+        //delUser.setLocation(150,330);
 
-        this.add(delUser);
+        buttonPanel.add(delUser);
 
 
         updateUserDB = new JButton("Update Users DB");
         updateUserDB.setFont(new Font("Arial",Font.PLAIN,15));
         updateUserDB.setBackground(Color.red);
-        updateUserDB.setSize(150,20);
-        updateUserDB.setLocation(50,330);
+        //updateUserDB.setSize(150,20);
+        //updateUserDB.setLocation(10,330);
 
-        this.add(updateUserDB);
-
-
+        buttonPanel.add(updateUserDB);
+        buttonPanel.setSize(300,50);
+        buttonPanel.setLocation(15,290);
+        buttonPanel.setLayout(new GridLayout(2,2,10,10));
+        this.add(buttonPanel);
 
 
 
@@ -149,7 +157,7 @@ public class MainLeftPanel extends JPanel {
         ticketTypes = new JComboBox(ticketTypesList);
         ticketTypes.setFont(new Font("Arial", Font.PLAIN, 15));
         ticketTypes.setSize(200, 20);
-        ticketTypes.setLocation(200, 100);
+        ticketTypes.setLocation(100, 100);
         this.add(ticketTypes);
 
         setVisible(true);

@@ -6,21 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegistrationPanel extends JPanel {
+    private RegistrationLeftPanel registrationLeftPanel;
+    private RegistrationRightPanel registrationRightPanel;
 
-    SwitchPanels switchPanels = new SwitchPanels();
-    JButton backButton;
     public RegistrationPanel(){
+        registrationLeftPanel = new RegistrationLeftPanel();
+        registrationRightPanel = new RegistrationRightPanel();
 
-        JLabel label = new JLabel("Registration");
-        backButton = new JButton("Back");
-        this.backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainPanel mainpanel =  new MainPanel();
-                switchPanels.switchPanels(mainpanel);
-            }
-        });
-        this.add(label);
-        this.add(backButton);
+        this.add(registrationLeftPanel);
+        this.add(registrationRightPanel);
+
+        this.setLayout(new GridLayout(1,1));
+
+        this.setVisible(true);
+
     }
 }

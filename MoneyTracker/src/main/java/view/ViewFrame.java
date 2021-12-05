@@ -3,35 +3,38 @@ package view;
 
 
 import view.frames.MainPanel;
+import view.frames.RegistrationPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ViewFrame extends JFrame {
 
-    MainPanel mainPanel;
-
+    private MainPanel mainPanel;
+    private RegistrationPanel registrationPanel;
 
 
     public ViewFrame(){super("MoneyTracker");}
 
     public void initialize()
     {
-        this.setSize(900, 500);
+        this.setSize(800    , 420);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        mainPanel = new MainPanel();
+        registrationPanel = new RegistrationPanel();
 
         GridLayout layout = new GridLayout();
         this.setLayout(layout);
+        JTabbedPane tabbedPane = new JTabbedPane();
 
 
 
-        mainPanel = new MainPanel();
 
-        this.add(mainPanel);
+        tabbedPane.add("main",mainPanel);
+        tabbedPane.add("create users",registrationPanel);
+        this.add(tabbedPane);
         this.setVisible(true);
     }
 

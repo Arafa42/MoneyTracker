@@ -1,6 +1,8 @@
 package view.frames;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class MainRightPanel extends JPanel {
     private JList userList;
@@ -8,26 +10,25 @@ public class MainRightPanel extends JPanel {
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private DefaultListModel<String> tcktlst = new DefaultListModel<>();
     public MainRightPanel(){
+
+        this.setLayout(new GridLayout(2,0,5,5));
+
         userList = new JList(lst);
-        userList.setSize(400,300);
-        userList.setLocation(450,0);
+
         this.add(userList);
-
-        ticketList = new JList(tcktlst);
-        ticketList.setSize(400,300);
-        ticketList.setLocation(0,0);
-        this.add(ticketList);
-
         JScrollPane scrollPane = new JScrollPane(userList);
         scrollPane.setVisible(true);
-        scrollPane.setSize(435,180);
-        scrollPane.setLocation(0,0);
         this.add(scrollPane);
 
+
+
+        ticketList = new JList(tcktlst);
+
+        this.add(ticketList);
         JScrollPane scrollPane2 = new JScrollPane(ticketList);
         scrollPane2.setVisible(true);
-        scrollPane2.setSize(435,180);
-        scrollPane2.setLocation(0,181);
         this.add(scrollPane2);
+
+
     }
 }

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class MainPanel extends JPanel    implements ActionListener {
 
 
-    SwitchPanels switchPanels = new SwitchPanels();
     JButton createUser;
 
     public MainPanel(){
@@ -32,6 +31,8 @@ public class MainPanel extends JPanel    implements ActionListener {
         this.setLayout(new GridLayout(1,1));
 
         this.setVisible(true);
+
+
 
     }
 
