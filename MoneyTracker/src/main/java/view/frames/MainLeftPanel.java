@@ -23,7 +23,6 @@ public class MainLeftPanel extends JPanel {
     private JLabel title;
     private JLabel ticketType;
     private JLabel amount;
-    private JTextField t_ticketType;
     private JTextField tAmnt;
     private JLabel split;
     private JRadioButton even;
@@ -32,17 +31,12 @@ public class MainLeftPanel extends JPanel {
     private JButton sub;
     private JButton reset;
     private JButton delUser;
-    private JButton updateUserDB;
     DatabaseTickets ticketsDB = TicketsDB.getInstance();
     PersonsDB personsDB = PersonsDB.getInstance();
     UserController userController = new UserController(personsDB);
     TicketController ticketController = new TicketController(ticketsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
-    private DefaultListModel<String> lst = new DefaultListModel<>();
-    private DefaultListModel<String> tcktlst = new DefaultListModel<>();
-    private JList userList;
-    private JList ticketList;
     private JTextField j;
     private JLabel l;
     private JComboBox ticketTypes;
@@ -50,7 +44,7 @@ public class MainLeftPanel extends JPanel {
     HashMap<User,Double>  hashmap = new HashMap<User,Double>();
     Integer rowCount = 0;
     JPanel pne = new JPanel();
-
+    private JButton lockButton;
 
 
 
@@ -138,7 +132,9 @@ public class MainLeftPanel extends JPanel {
 
         buttonPanel.add(delUser);
 
-
+        lockButton = new JButton("Add to Bill");
+        lockButton.setFont(new Font("Arial",Font.PLAIN,15));
+        buttonPanel.add(lockButton);
 
         buttonPanel.setSize(300,50);
         buttonPanel.setLocation(15,290);

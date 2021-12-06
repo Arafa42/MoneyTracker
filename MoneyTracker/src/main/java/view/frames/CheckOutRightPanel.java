@@ -1,10 +1,10 @@
 package view.frames;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MainRightPanel extends JPanel {
+public class CheckOutRightPanel extends JPanel {
+
     protected JList userList;
     protected JList ticketList;
     private DefaultListModel<String> lst = new DefaultListModel<>();
@@ -12,24 +12,14 @@ public class MainRightPanel extends JPanel {
     private JScrollPane scrollPane2;
     private JScrollPane scrollPane;
 
-    public MainRightPanel(){
-
-        this.setLayout(new GridLayout(2,0,5,5));
-
+    public CheckOutRightPanel(){
+        this.setLayout(new GridLayout(1,0));
         userList = new JList(lst);
-
         this.add(userList);
         scrollPane = new JScrollPane(userList);
         scrollPane.setVisible(true);
         this.add(scrollPane);
-
-        ticketList = new JList(tcktlst);
-
-        this.add(ticketList);
-        scrollPane2 = new JScrollPane(ticketList);
-        scrollPane2.setVisible(true);
-        this.add(scrollPane2);
-
+        setVisible(true);
     }
     public void addElementToUserList(String elem){ lst.addElement(elem); }
     public void removeElementFromList(Integer index){lst.remove(index);}

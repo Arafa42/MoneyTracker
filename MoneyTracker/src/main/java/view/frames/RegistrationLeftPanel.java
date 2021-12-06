@@ -63,7 +63,7 @@ public class RegistrationLeftPanel extends JPanel {
         this.setBorder(new EmptyBorder(new Insets(0, 0, 0,     0)));
         title = new JLabel("MONEY TRACKER USER REGISTRATION");
         title.setFont(new Font("Arial", Font.BOLD, 18));
-        title.setSize(350, 30);
+        title.setSize(400, 30);
         title.setLocation(10, 20);
         this.add(title);
 

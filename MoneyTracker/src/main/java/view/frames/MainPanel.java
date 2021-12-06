@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MainPanel extends JPanel    implements ActionListener {
+public class MainPanel extends JPanel {
 
     JButton createUser;
     public static MainRightPanel mainRightPanel;
@@ -32,8 +32,5 @@ public class MainPanel extends JPanel    implements ActionListener {
         this.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 }
