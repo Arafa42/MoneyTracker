@@ -30,4 +30,7 @@ public class MainRightPanel extends JPanel {
     }
     public void addElementToUserList(String elem){ lst.addElement(elem); }
     public void removeElementFromList(Integer index){lst.remove(index);}
+    public void addElementToTicketList(String elem){ tcktlst.addElement(elem); }
+    public void clearTicketList(){tcktlst.clear();}
+    public void removeElementFromTicketList(Integer index){tcktlst.remove(index);}
 }

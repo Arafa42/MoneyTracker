@@ -166,9 +166,11 @@ public class MainLeftPanel extends JPanel {
         addTicketActionListener();
         evenButtonActionListener();
         unEvenButtonActionListener();
+        removeTicketButtonActionListener();
 
         setVisible(true);
     }
+
 
     public void addTicketActionListener(){
         this.sub.addActionListener(listener -> {
@@ -179,28 +181,39 @@ public class MainLeftPanel extends JPanel {
             Boolean isEven = true;
             Ticket ticket;
 
-
-            if(even.isSelected()){
-                isEven = true;
-                ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
-
-                // DISABLE ALLE VELDEN
-
-            }
+            if(even.isSelected()){ isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap); }
             else{
                 isEven = false;
+                for (int i=0;i<userController.getAllUsersSortedById().size();i++){
+                    hashmap.put(userController.getAllUsersSortedById().get(i),Double.parseDouble(textFields.get(i).getText()));
+                }
+                ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
             }
-
-
-            ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
             ticketController.addTicket(ticket);
 
+            System.out.println(ticketController.getAllTickets());
+            MainPanel.mainRightPanel.clearTicketList();
+            for(int i =0;i<ticketController.getAllTickets().size();i++){
+                MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).toString());
+            }
+        });
+    }
+
+    public void removeTicketButtonActionListener(){
+        this.delUser.addActionListener(listener ->{
+            Integer s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
+            ticketController.deleteTicketById(s);
+            System.out.println(ticketController.getAllTicketsSortedById());
+            DeleteTicketList(s);
         });
     }
 
     public void evenButtonActionListener(){
         this.even.addActionListener(listener ->{
             System.out.println("EVENVEVNEVENVENENV");
+            pne.removeAll();
+            revalidate();
+            repaint();
         });
     }
 
@@ -238,6 +251,11 @@ public class MainLeftPanel extends JPanel {
         System.out.println(labels.get(0).getText());
         revalidate();
         repaint();
+    }
+
+
+    public void DeleteTicketList(Integer index){
+        MainPanel.mainRightPanel.removeElementFromTicketList(index);
     }
 
 

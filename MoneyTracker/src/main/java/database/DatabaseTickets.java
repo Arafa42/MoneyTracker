@@ -13,5 +13,7 @@ public abstract class DatabaseTickets extends Observable {
     public abstract void addEntry(Ticket ticket, RegisterEntry registerEntry);
     public abstract RegisterEntry getTicketEntry(Ticket ticket);
     public abstract List<Ticket> getAllTickets();
+    public abstract void deleteTicketById(int id, RegisterEntry re);
+    public abstract List<Ticket> sortJsonArr();
 
 }

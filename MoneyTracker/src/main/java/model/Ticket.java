@@ -8,6 +8,7 @@ public class Ticket {
     private User owner;
     private Boolean splitEven;
     private HashMap<User,Double> unevenSplitAmount;
+    private Integer id;
 
     public Ticket(Double totalAmount, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
         this.totalAmount = totalAmount;
@@ -25,6 +26,8 @@ public class Ticket {
         this.name = name;
     }
 
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
     public Double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
     public String getName() { return name; }
@@ -36,6 +39,7 @@ public class Ticket {
     public HashMap<User,Double> getUnevenSplitAmount() { return unevenSplitAmount; }
     public void setUnevenSplitAmount(HashMap<User,Double> unevenSplitAmount) { this.unevenSplitAmount = unevenSplitAmount; }
 
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -44,7 +48,7 @@ public class Ticket {
                 ", owner=" + owner +
                 ", splitEven=" + splitEven +
                 ", unevenSplitAmount=" + unevenSplitAmount +
+                ", id=" + id +
                 '}';
     }
-
 }
