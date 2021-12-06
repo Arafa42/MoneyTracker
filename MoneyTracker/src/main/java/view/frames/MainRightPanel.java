@@ -5,8 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MainRightPanel extends JPanel {
-    private JList userList;
-    private JList ticketList;
+    protected JList userList;
+    protected JList ticketList;
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private DefaultListModel<String> tcktlst = new DefaultListModel<>();
     public MainRightPanel(){
@@ -20,8 +20,6 @@ public class MainRightPanel extends JPanel {
         scrollPane.setVisible(true);
         this.add(scrollPane);
 
-
-
         ticketList = new JList(tcktlst);
 
         this.add(ticketList);
@@ -29,6 +27,7 @@ public class MainRightPanel extends JPanel {
         scrollPane2.setVisible(true);
         this.add(scrollPane2);
 
-
     }
+    public void addElementToUserList(String elem){ lst.addElement(elem); }
+    public void removeElementFromList(Integer index){lst.remove(index);}
 }

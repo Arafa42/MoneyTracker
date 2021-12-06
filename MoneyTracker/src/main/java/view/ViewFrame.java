@@ -27,17 +27,14 @@ public class ViewFrame extends JFrame {
 
         GridLayout layout = new GridLayout();
         this.setLayout(layout);
+
         JTabbedPane tabbedPane = new JTabbedPane();
-
-
-
-
-        tabbedPane.add("main",mainPanel);
         tabbedPane.add("create users",registrationPanel);
+        tabbedPane.add("Money Tracker",mainPanel);
+
         this.add(tabbedPane);
         this.setVisible(true);
     }
-
     public void switchPanels(){
         this.removeAll();
     }

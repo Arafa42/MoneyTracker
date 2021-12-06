@@ -1,8 +1,15 @@
 package view.frames;
 
+import com.sun.tools.javac.Main;
+import controller.UserController;
+import database.DatabasePersons;
+import database.PersonsDB;
+import model.User;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class RegistrationLeftPanel extends JPanel {
     private JLabel title;
@@ -23,9 +30,11 @@ public class RegistrationLeftPanel extends JPanel {
     private JButton sub;
     private JButton reset;
     private JButton delUser;
-    private DefaultListModel<String> lst = new DefaultListModel<>();
-    private JList userList;
     private JPanel panel = new JPanel();
+    private DatabasePersons personsDB = PersonsDB.getInstance();
+    private UserController userController = new UserController(personsDB);
+    private DefaultListModel<String> lst = new DefaultListModel<>();
+
 
     private String dates[]
             = { "1", "2", "3", "4", "5",
@@ -115,7 +124,7 @@ public class RegistrationLeftPanel extends JPanel {
         date = new JComboBox(dates);
         date.setFont(new Font("Arial", Font.PLAIN, 15));
         date.setSize(50, 20);
-        date.setLocation(140, 160);
+        date.setLocation(150, 160);
         this.add(date);
 
         month = new JComboBox(months);
@@ -181,5 +190,67 @@ public class RegistrationLeftPanel extends JPanel {
         this.add(buttonPanel);
 
         setVisible(true);
+
+
+        createUserButtonActionListener();
+        removeUserButtonActionListener();
+        resetFormButtonActionListener();
+
     }
+
+    public void createUserButtonActionListener(){
+        this.sub.addActionListener(listener ->{
+            String name = tname.getText();
+            String surname = tsurName.getText();
+            String birthday = date.getSelectedItem().toString() + "/" + month.getSelectedItem().toString() + "/" + year.getSelectedItem().toString();
+            String gender;
+            if(male.isSelected()){ gender = "Male"; }
+            else{gender = "Female";}
+            String address = tadd.getText();
+            User user = new User(name,surname,birthday,gender,address,0.0);
+            userController.addUser(user);
+            System.out.println(userController.getAllUsersSortedById());
+            updateUserList();
+            resetForm();
+        });
+    }
+
+    public void removeUserButtonActionListener(){
+        this.delUser.addActionListener(listener ->{
+           Integer s =  RegistrationPanel.registrationRightPanel.userList.getSelectedIndex();
+           userController.deleteUserById(s);
+           System.out.println(userController.getAllUsersSortedById());
+            DeleteUserList(s);
+        });
+    }
+
+
+    public void resetFormButtonActionListener(){
+        this.reset.addActionListener(listener -> {
+            resetForm();
+        });
+    }
+
+
+
+    public void DeleteUserList(Integer index){
+        RegistrationPanel.registrationRightPanel.removeElementFromList(index);
+        MainPanel.mainRightPanel.removeElementFromList(index);
+    }
+
+    public void updateUserList(){
+        MainPanel.mainRightPanel.addElementToUserList(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
+        RegistrationPanel.registrationRightPanel.addElementToList(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
+    }
+
+    public void resetForm(){
+        String def = "";
+        tname.setText(def);
+        tsurName.setText(def);
+        tadd.setText(def);
+        date.setSelectedIndex(0);
+        month.setSelectedIndex(0);
+        year.setSelectedIndex(0);
+    }
+
 }

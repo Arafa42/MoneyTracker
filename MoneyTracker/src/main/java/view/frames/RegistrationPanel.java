@@ -7,18 +7,16 @@ import java.awt.event.ActionListener;
 
 public class RegistrationPanel extends JPanel {
     private RegistrationLeftPanel registrationLeftPanel;
-    private RegistrationRightPanel registrationRightPanel;
+    public static RegistrationRightPanel registrationRightPanel;
 
     public RegistrationPanel(){
         registrationLeftPanel = new RegistrationLeftPanel();
         registrationRightPanel = new RegistrationRightPanel();
-
         this.add(registrationLeftPanel);
         this.add(registrationRightPanel);
-
         this.setLayout(new GridLayout(1,1));
-
         this.setVisible(true);
-
     }
+
+
 }

@@ -18,22 +18,18 @@ import java.util.ArrayList;
 
 public class MainPanel extends JPanel    implements ActionListener {
 
-
     JButton createUser;
+    public static MainRightPanel mainRightPanel;
+    private MainLeftPanel mainLeftPanel;
+
 
     public MainPanel(){
-        MainRightPanel mainRightPanel = new MainRightPanel();
-        MainLeftPanel mainLeftPanel = new MainLeftPanel();
-
+        mainRightPanel = new MainRightPanel();
+        mainLeftPanel = new MainLeftPanel();
         this.add(mainLeftPanel);
         this.add(mainRightPanel);
-
         this.setLayout(new GridLayout(1,1));
-
         this.setVisible(true);
-
-
-
     }
 
     @Override

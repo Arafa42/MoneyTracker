@@ -9,6 +9,7 @@ import database.TicketsDB;
 import factory.FactoryProvider;
 import factory.ITicketFactory;
 import model.Ticket;
+import model.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainLeftPanel extends JPanel {
     private JLabel title;
@@ -31,8 +33,8 @@ public class MainLeftPanel extends JPanel {
     private JButton reset;
     private JButton delUser;
     private JButton updateUserDB;
-    DatabasePersons personsDB = PersonsDB.getInstance();
     DatabaseTickets ticketsDB = TicketsDB.getInstance();
+    PersonsDB personsDB = PersonsDB.getInstance();
     UserController userController = new UserController(personsDB);
     TicketController ticketController = new TicketController(ticketsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
@@ -45,6 +47,12 @@ public class MainLeftPanel extends JPanel {
     private JLabel l;
     private JComboBox ticketTypes;
     private String[] ticketTypesList = new String[2];
+    HashMap<User,Double>  hashmap = new HashMap<User,Double>();
+    Integer rowCount = 0;
+    JPanel pne = new JPanel();
+
+
+
 
     public MainLeftPanel(){
 
@@ -131,13 +139,7 @@ public class MainLeftPanel extends JPanel {
         buttonPanel.add(delUser);
 
 
-        updateUserDB = new JButton("Update Users DB");
-        updateUserDB.setFont(new Font("Arial",Font.PLAIN,15));
-        updateUserDB.setBackground(Color.red);
-        //updateUserDB.setSize(150,20);
-        //updateUserDB.setLocation(10,330);
 
-        buttonPanel.add(updateUserDB);
         buttonPanel.setSize(300,50);
         buttonPanel.setLocation(15,290);
         buttonPanel.setLayout(new GridLayout(2,2,10,10));
@@ -160,7 +162,83 @@ public class MainLeftPanel extends JPanel {
         ticketTypes.setLocation(100, 100);
         this.add(ticketTypes);
 
+
+        addTicketActionListener();
+        evenButtonActionListener();
+        unEvenButtonActionListener();
+
         setVisible(true);
     }
+
+    public void addTicketActionListener(){
+        this.sub.addActionListener(listener -> {
+
+            Double totalAmnt = Double.parseDouble(tAmnt.getText());
+            String name = ticketTypes.getSelectedItem().toString();
+            User owner = userController.getAllUsersSortedById().get(MainPanel.mainRightPanel.userList.getSelectedIndex());
+            Boolean isEven = true;
+            Ticket ticket;
+
+
+            if(even.isSelected()){
+                isEven = true;
+                ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
+
+                // DISABLE ALLE VELDEN
+
+            }
+            else{
+                isEven = false;
+            }
+
+
+            ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
+            ticketController.addTicket(ticket);
+
+        });
+    }
+
+    public void evenButtonActionListener(){
+        this.even.addActionListener(listener ->{
+            System.out.println("EVENVEVNEVENVENENV");
+        });
+    }
+
+    public void unEvenButtonActionListener(){
+        this.uneven.addActionListener(listener ->{
+            generateFields();
+        });
+    }
+
+    public void generateFields(){
+        labels.clear();
+        textFields.clear();
+        rowCount++;
+        //ROEP functie aan OM VELDEN TE MAKEN
+        pne.removeAll();
+        pne.setLayout(new GridLayout(userController.getAllUsersSortedById().size(),1,5,5));
+        Integer ypos = 170;
+        for(int i=0;i<userController.getAllUsersSortedById().size();i++){
+            j = new JTextField();
+            l = new JLabel();
+            ypos += 30;
+//            l.setLocation(50,ypos);
+//            l.setSize(50,20);
+//            j.setLocation(200,ypos);
+//            j.setSize(50,20);
+            textFields.add(j);
+            labels.add(l);
+            labels.get(i).setText(userController.getAllUsersSortedById().get(i).getName());
+            pne.add(l);
+            pne.add(j);
+        }
+        pne.setSize(200,userController.getAllUsersSortedById().size()*20);
+        pne.setLocation(10,170);
+        this.add(pne);
+        System.out.println(labels.get(0).getText());
+        revalidate();
+        repaint();
+    }
+
 
 }
