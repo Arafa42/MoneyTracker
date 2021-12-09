@@ -10,7 +10,7 @@ import java.awt.*;
 public class ViewFrame extends JFrame {
 
     private MainPanel mainPanel;
-    private RegistrationPanel registrationPanel;
+    protected RegistrationPanel registrationPanel;
     private CheckOutPanel checkOutPanel;
 
     public ViewFrame(){super("MoneyTracker");}

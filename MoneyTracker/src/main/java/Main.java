@@ -1,9 +1,11 @@
 import controller.TicketController;
 import controller.UserController;
+import database.DatabasePersons;
 import database.PersonsDB;
 import database.TicketsDB;
 import model.Ticket;
 import model.User;
+import observers.UserCreationObserver;
 import view.ViewFrame;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Main {
     public void run() {
 
         //CREATE PERSONS
-        PersonsDB personsDB = new PersonsDB();
+        DatabasePersons personsDB = PersonsDB.getInstance();
         UserController userController = new UserController(personsDB);
 //        User user = new User("Arafa","Yoncalik","30/06/1999","male","lalastraat 10",0.0);
 //        User user2 = new User("Pipi","Kaka","30/06/1999","male","lalastraat 10",0.0);
@@ -86,6 +88,10 @@ public class Main {
 
         ViewFrame frame = new ViewFrame();
         frame.initialize();
+
+        UserCreationObserver userCreationObserver = new UserCreationObserver();
+        personsDB.addObserver(userCreationObserver);
+
 
     }
 }

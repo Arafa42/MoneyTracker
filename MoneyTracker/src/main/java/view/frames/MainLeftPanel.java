@@ -263,7 +263,7 @@ public class MainLeftPanel extends JPanel {
 
 
     public void billCalculation(){
-        int k = 0;
+
         System.out.println("CALCULATE");
 
         //GET ALL TICKETS
@@ -287,6 +287,7 @@ public class MainLeftPanel extends JPanel {
             }
             else {
                 for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
+                    int k = 0;
                     k++;
                     if(entry.getKey() != owner){
                         System.out.println(userController.getAllUsersSortedById().get(k).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
