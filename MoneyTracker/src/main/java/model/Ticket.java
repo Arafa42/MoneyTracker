@@ -18,6 +18,14 @@ public class Ticket {
         this.unevenSplitAmount = unevenSplitAmount;
     }
 
+    public Ticket(Double totalAmount, String name, User owner, Boolean splitEven){
+        this.totalAmount = totalAmount;
+        this.name = name;
+        this.owner = owner;
+        this.splitEven = splitEven;
+    }
+
+
     public Ticket() {
 
     }

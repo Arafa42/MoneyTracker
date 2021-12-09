@@ -1,7 +1,5 @@
 package view;
 
-
-
 import view.frames.CheckOutPanel;
 import view.frames.MainPanel;
 import view.frames.RegistrationPanel;

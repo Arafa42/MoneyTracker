@@ -22,7 +22,6 @@ public class MainPanel extends JPanel {
     public static MainRightPanel mainRightPanel;
     private MainLeftPanel mainLeftPanel;
 
-
     public MainPanel(){
         mainRightPanel = new MainRightPanel();
         mainLeftPanel = new MainLeftPanel();
@@ -31,6 +30,4 @@ public class MainPanel extends JPanel {
         this.setLayout(new GridLayout(1,1));
         this.setVisible(true);
     }
-
-
 }

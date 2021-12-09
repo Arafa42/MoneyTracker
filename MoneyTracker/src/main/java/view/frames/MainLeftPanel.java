@@ -1,13 +1,12 @@
 package view.frames;
 
+import controller.BillController;
 import controller.TicketController;
 import controller.UserController;
-import database.DatabasePersons;
-import database.DatabaseTickets;
-import database.PersonsDB;
-import database.TicketsDB;
+import database.*;
 import factory.FactoryProvider;
 import factory.ITicketFactory;
+import model.Bill;
 import model.Ticket;
 import model.User;
 
@@ -18,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainLeftPanel extends JPanel {
     private JLabel title;
@@ -31,10 +31,12 @@ public class MainLeftPanel extends JPanel {
     private JButton sub;
     private JButton reset;
     private JButton delUser;
+    DatabaseBills billsDB = BillsDB.getInstance();
     DatabaseTickets ticketsDB = TicketsDB.getInstance();
     PersonsDB personsDB = PersonsDB.getInstance();
     UserController userController = new UserController(personsDB);
     TicketController ticketController = new TicketController(ticketsDB);
+    BillController billController = new BillController(billsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     private JTextField j;
@@ -108,7 +110,6 @@ public class MainLeftPanel extends JPanel {
         gengp.add(even);
         gengp.add(uneven);
 
-
         JPanel buttonPanel = new JPanel();
 
         sub = new JButton("Create ticket");
@@ -141,8 +142,6 @@ public class MainLeftPanel extends JPanel {
         buttonPanel.setLayout(new GridLayout(2,2,10,10));
         this.add(buttonPanel);
 
-
-
         ITicketFactory factory = FactoryProvider.getCinemaTicketFactory();
         Ticket cinemaTicket = factory.getTicket("cinema");
         System.out.println(cinemaTicket);
@@ -151,18 +150,17 @@ public class MainLeftPanel extends JPanel {
         Ticket restoTick = factory.getTicket("resto");
         ticketTypesList[1] = (restoTick.getName());
 
-
         ticketTypes = new JComboBox(ticketTypesList);
         ticketTypes.setFont(new Font("Arial", Font.PLAIN, 15));
         ticketTypes.setSize(200, 20);
         ticketTypes.setLocation(100, 100);
         this.add(ticketTypes);
 
-
         addTicketActionListener();
         evenButtonActionListener();
         unEvenButtonActionListener();
         removeTicketButtonActionListener();
+        addToBillButtonActionListener();
 
         setVisible(true);
     }
@@ -177,7 +175,7 @@ public class MainLeftPanel extends JPanel {
             Boolean isEven = true;
             Ticket ticket;
 
-            if(even.isSelected()){ isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap); }
+            if(even.isSelected()){ isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven); }
             else{
                 isEven = false;
                 for (int i=0;i<userController.getAllUsersSortedById().size();i++){
@@ -190,7 +188,7 @@ public class MainLeftPanel extends JPanel {
             System.out.println(ticketController.getAllTickets());
             MainPanel.mainRightPanel.clearTicketList();
             for(int i =0;i<ticketController.getAllTickets().size();i++){
-                MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).toString());
+                MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).getOwner().toString());
             }
         });
     }
@@ -204,9 +202,18 @@ public class MainLeftPanel extends JPanel {
         });
     }
 
+
+    public void addToBillButtonActionListener(){
+
+        //CALCULATE EVERYTHING AND CREATE BILLS FOR EACH PERSON
+        this.lockButton.addActionListener(listener->{
+            billCalculation();
+        });
+    }
+
+
     public void evenButtonActionListener(){
         this.even.addActionListener(listener ->{
-            System.out.println("EVENVEVNEVENVENENV");
             pne.removeAll();
             revalidate();
             repaint();
@@ -244,7 +251,7 @@ public class MainLeftPanel extends JPanel {
         pne.setSize(200,userController.getAllUsersSortedById().size()*20);
         pne.setLocation(10,170);
         this.add(pne);
-        System.out.println(labels.get(0).getText());
+//        System.out.println(labels.get(0).getText());
         revalidate();
         repaint();
     }
@@ -254,5 +261,32 @@ public class MainLeftPanel extends JPanel {
         MainPanel.mainRightPanel.removeElementFromTicketList(index);
     }
 
+    public void billCalculation(){
 
+        System.out.println("CALCULATE");
+
+        for (int i=0;i<ticketController.getAllTickets().size();i++){
+
+            User owner = ticketController.getAllTickets().get(i).getOwner();
+
+                for (int j =0;j<userController.getAllUsersSortedById().size();j++){
+                    if(userController.getAllUsersSortedById().get(j) != owner){
+
+                        if(ticketController.getAllTickets().get(i).getSplitEven()){
+                            Double AmountToPayOwner = ticketController.getAllTickets().get(i).getTotalAmount() / userController.getAllUsersSortedById().size();
+                            System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + AmountToPayOwner);
+                        }
+                        else{
+
+                            for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
+                                if(entry.getKey() != owner){
+                                    System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
+                                }
+                            }
+                           // System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + AmountToPayOwner);
+                        }
+                    }
+                }
+        }
+    }
 }
