@@ -6,19 +6,15 @@ import controller.UserController;
 import database.*;
 import factory.FactoryProvider;
 import factory.ITicketFactory;
-import model.Bill;
+import helper.Calculator;
 import model.Ticket;
 import model.User;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class MainLeftPanel extends JPanel {
     private JLabel title;
@@ -33,9 +29,7 @@ public class MainLeftPanel extends JPanel {
     private JButton reset;
     private JButton delUser;
     TicketsDB ticketsDB = TicketsDB.getInstance();
-    BillsDB billsDB = BillsDB.getInstance();
     PersonsDB personsDB = PersonsDB.getInstance();
-    BillController billController = new BillController(billsDB);
     UserController userController = new UserController(personsDB);
     TicketController ticketController = new TicketController(ticketsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
@@ -48,7 +42,7 @@ public class MainLeftPanel extends JPanel {
     Integer rowCount = 0;
     JPanel pne = new JPanel();
     private JButton lockButton;
-
+    Calculator calculate = new Calculator();
 
 
     public MainLeftPanel(){
@@ -66,12 +60,6 @@ public class MainLeftPanel extends JPanel {
         ticketType.setSize(100, 20);
         ticketType.setLocation(10, 100);
         this.add(ticketType);
-
-//        t_ticketType = new JTextField();
-//        t_ticketType.setFont(new Font("Arial", Font.PLAIN, 15));
-//        t_ticketType.setSize(200, 20);
-//        t_ticketType.setLocation(200, 100);
-//        c.add(t_ticketType);
 
         amount = new JLabel("Amount");
         amount.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -205,10 +193,9 @@ public class MainLeftPanel extends JPanel {
 
 
     public void addToBillButtonActionListener(){
-
-        //CALCULATE EVERYTHING AND CREATE BILLS FOR EACH PERSON
         this.lockButton.addActionListener(listener->{
-            billCalculation();
+            System.out.println("CALCULATE");
+            calculate.BillCalculation();
         });
     }
 
@@ -231,7 +218,6 @@ public class MainLeftPanel extends JPanel {
         labels.clear();
         textFields.clear();
         rowCount++;
-        //ROEP functie aan OM VELDEN TE MAKEN
         pne.removeAll();
         pne.setLayout(new GridLayout(userController.getAllUsersSortedById().size(),1,5,5));
         Integer ypos = 170;
@@ -239,10 +225,6 @@ public class MainLeftPanel extends JPanel {
             j = new JTextField();
             l = new JLabel();
             ypos += 30;
-//            l.setLocation(50,ypos);
-//            l.setSize(50,20);
-//            j.setLocation(200,ypos);
-//            j.setSize(50,20);
             textFields.add(j);
             labels.add(l);
             labels.get(i).setText(userController.getAllUsersSortedById().get(i).getName());
@@ -252,90 +234,12 @@ public class MainLeftPanel extends JPanel {
         pne.setSize(200,userController.getAllUsersSortedById().size()*20);
         pne.setLocation(10,170);
         this.add(pne);
-//        System.out.println(labels.get(0).getText());
         revalidate();
         repaint();
     }
-
 
     public void DeleteTicketList(Integer index){
         MainPanel.mainRightPanel.removeElementFromTicketList(index);
     }
 
-
-    public void newBillCalculation(){
-
-        //ELKE USER IN LIST KRIJGT EEN BILL ALS OWNER HIJ ZELF
-
-        //empty hashmap
-        List<HashMap<String,Double>> amountToReceive = new ArrayList<HashMap<String,Double>>();
-
-        for (int i =0;i<userController.getAllUsersSortedById().size();i++){
-            Bill bill = new Bill(amountToReceive,userController.getAllUsersSortedById().get(i).getName().toString());
-            billController.addBill(bill);
-        }
-
-        //ADD USERS TO PAY OWNER IN HASHMAP
-        for (int i =0;i<billController.getAllBills().size();i++) {
-            List<HashMap<String,Double>> hshmpList = new ArrayList<HashMap<String,Double>>();
-
-            for(int j=0;j<userController.getAllUsersSortedById().size();j++){
-
-                if(billController.getAllBills().get(i).getOwnerName() != userController.getAllUsersSortedById().get(j).getName()){
-
-                    System.out.println(billController.getAllBills().get(j).getOwnerName());
-                    System.out.println(userController.getAllUsersSortedById().get(i).getName());
-
-                    HashMap<String,Double> hshmp = new HashMap<String,Double>();
-                    hshmp.put(userController.getAllUsersSortedById().get(i).getName(),0.0);
-                    hshmpList.add(hshmp);
-                    billController.getAllBills().get(j).setAmountToReceive(hshmpList);
-
-                }
-            }
-        }
-
-        System.out.println("-------------------------");
-        System.out.println(billController.getAllBillsSortedById());
-
-    }
-
-
-    public void billCalculation(){
-
-        newBillCalculation();
-        System.out.println("CALCULATE");
-
-        //GET ALL TICKETS
-        for (int i=0;i<ticketController.getAllTickets().size();i++){
-
-            //GET OWNER OF CURRENT TICKET
-            User owner = ticketController.getAllTickets().get(i).getOwner();
-            if(ticketController.getAllTickets().get(i).getSplitEven()){
-                //LOOP THROUGH USERS CHECK IF USER IS NOT EQUAL TO OWNER
-                for (int j =0;j<userController.getAllUsersSortedById().size();j++){
-                    if(userController.getAllUsersSortedById().get(j) != owner){
-
-                        // IF TICKET IS SPLIT EVEN GET TOTAL AMOUNT OF TICKET EN DEEL DOOR TOTAL AMOUNT OF USERS IN DB
-
-                        Double AmountToPayOwner = ticketController.getAllTickets().get(i).getTotalAmount() / userController.getAllUsersSortedById().size();
-                        System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + AmountToPayOwner);
-
-
-                    }
-                }
-            }
-            else {
-                for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
-                    int k = 0;
-                    k++;
-                    if(entry.getKey() != owner){
-                        System.out.println(userController.getAllUsersSortedById().get(k).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
-                    }
-            }
-
-
-                
-        }
-    }
-}}
+}
