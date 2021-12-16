@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainLeftPanel extends JPanel {
@@ -31,12 +32,12 @@ public class MainLeftPanel extends JPanel {
     private JButton sub;
     private JButton reset;
     private JButton delUser;
-    DatabaseBills billsDB = BillsDB.getInstance();
-    DatabaseTickets ticketsDB = TicketsDB.getInstance();
+    TicketsDB ticketsDB = TicketsDB.getInstance();
+    BillsDB billsDB = BillsDB.getInstance();
     PersonsDB personsDB = PersonsDB.getInstance();
+    BillController billController = new BillController(billsDB);
     UserController userController = new UserController(personsDB);
     TicketController ticketController = new TicketController(ticketsDB);
-    BillController billController = new BillController(billsDB);
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     private JTextField j;
@@ -262,8 +263,46 @@ public class MainLeftPanel extends JPanel {
     }
 
 
+    public void newBillCalculation(){
+
+        //ELKE USER IN LIST KRIJGT EEN BILL ALS OWNER HIJ ZELF
+
+        //empty hashmap
+        List<HashMap<String,Double>> amountToReceive = new ArrayList<HashMap<String,Double>>();
+
+        for (int i =0;i<userController.getAllUsersSortedById().size();i++){
+            Bill bill = new Bill(amountToReceive,userController.getAllUsersSortedById().get(i).getName().toString());
+            billController.addBill(bill);
+        }
+
+        //ADD USERS TO PAY OWNER IN HASHMAP
+        for (int i =0;i<billController.getAllBills().size();i++) {
+            for(int j=0;j<userController.getAllUsersSortedById().size();j++){
+
+                if(billController.getAllBills().get(i).getOwnerName() != userController.getAllUsersSortedById().get(j).getName()){
+
+                    System.out.println(billController.getAllBills().get(j).getOwnerName());
+                    System.out.println(userController.getAllUsersSortedById().get(i).getName());
+
+                    List<HashMap<String,Double>> hshmpList = new ArrayList<HashMap<String,Double>>();
+                    HashMap<String,Double> hshmp = new HashMap<String,Double>();
+                    hshmp.put(userController.getAllUsersSortedById().get(i).getName(),0.0);
+                    hshmpList.add(hshmp);
+                    billController.getAllBills().get(j).setAmountToReceive(hshmpList);
+
+                }
+            }
+        }
+
+        System.out.println("-------------------------");
+        System.out.println(billController.getAllBillsSortedById());
+        
+    }
+
+
     public void billCalculation(){
 
+        newBillCalculation();
         System.out.println("CALCULATE");
 
         //GET ALL TICKETS
