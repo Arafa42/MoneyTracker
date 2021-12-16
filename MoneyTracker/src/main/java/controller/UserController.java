@@ -34,6 +34,12 @@ public class UserController implements IUser, Observer {
     }
 
     @Override
+    public User getUserByName(String name) {
+        return database.getUserByName(name);
+    }
+
+
+    @Override
     public void deleteUserById(int id) {
         RegisterEntry registerEntry = new RegisterEntry(false);
         database.deleteUserById(id,registerEntry);
