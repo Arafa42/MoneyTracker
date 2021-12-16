@@ -12,17 +12,14 @@ public class PersonsDB extends DatabasePersons{
     private final HashMap<User, RegisterEntry> database;
     private static PersonsDB singletonijn;
 
-
     public static PersonsDB getInstance(){
         if(singletonijn == null){ singletonijn = new PersonsDB(); }
         return singletonijn;
     }
 
-
     public PersonsDB() {
         this.database = new HashMap<>();
     }
-
 
     @Override
     public void addEntry(User user, RegisterEntry re) {
@@ -53,7 +50,18 @@ public class PersonsDB extends DatabasePersons{
         }
         setChanged();
         System.out.println("dekk : " + database.keySet());
+    }
 
+    @Override
+    public User getUserByName(String name) {
+        ArrayList<User> userList = new ArrayList<>(database.keySet());
+        for(int i =0;i<userList.size();i++){
+
+            if(userList.get(i).getName().equals(name)){
+                return userList.get(i);
+            }
+        }
+        return null;
     }
 
     @Override
