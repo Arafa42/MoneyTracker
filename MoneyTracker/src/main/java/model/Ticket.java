@@ -13,7 +13,7 @@ public class Ticket {
     private HashMap<User,Double> unevenSplitAmount;
     private Integer id;
 
-    public Ticket(Double totalAmount,User getpaid, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
+    public Ticket(Double totalAmount, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
         this.totalAmount = totalAmount;
         this.name = name;
         this.owner = owner;
@@ -29,12 +29,7 @@ public class Ticket {
         this.splitEven = splitEven;
     }
 
-    public Ticket(Double totalAmount, User paidByUser, ArrayList<User> users, Boolean splitEven) {
-        this.totalAmount = totalAmount;
-        this.paidByUser = paidByUser;
-        this.users = users;
-        this.splitEven = splitEven;
-    }
+
 
     public Ticket() {
 
