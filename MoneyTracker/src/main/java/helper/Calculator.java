@@ -73,6 +73,7 @@ public class Calculator {
                 }
             }
             else {
+                System.out.println("TICKETS : " + ticketController.getAllTickets().get(i).getUnevenSplitAmount());
                 for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
                     if(entry.getKey() != owner){
                         System.out.println(userController.getUserByName(entry.getKey().getName()).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
@@ -81,7 +82,8 @@ public class Calculator {
                                 for(int y=0;y<billController.getAllBillsSortedById().get(x).getAmountToReceive().size();y++){
                                     if(("[" + userController.getUserByName(entry.getKey().getName()).getName() + "]").equals(billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).keySet().toString()))
                                     {
-                                        billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).put(userController.getUserByName(entry.getKey().getName()).getName(), entry.getValue());
+                                        Double previousValue = Double.parseDouble(billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).values().toArray()[0].toString());
+                                        billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).put(userController.getUserByName(entry.getKey().getName()).getName(),previousValue + entry.getValue());
                                     }
                                 }
                             }

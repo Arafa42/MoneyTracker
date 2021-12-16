@@ -38,7 +38,6 @@ public class MainLeftPanel extends JPanel {
     private JLabel l;
     private JComboBox ticketTypes;
     private String[] ticketTypesList = new String[2];
-    HashMap<User,Double>  hashmap = new HashMap<User,Double>();
     Integer rowCount = 0;
     JPanel pne = new JPanel();
     private JButton lockButton;
@@ -162,6 +161,7 @@ public class MainLeftPanel extends JPanel {
             String name = ticketTypes.getSelectedItem().toString();
             User owner = userController.getAllUsersSortedById().get(MainPanel.mainRightPanel.userList.getSelectedIndex());
             Boolean isEven = true;
+            HashMap<User,Double>  hashmap = new HashMap<User,Double>();
             Ticket ticket;
 
             if(even.isSelected()){
@@ -176,7 +176,7 @@ public class MainLeftPanel extends JPanel {
             }
             ticketController.addTicket(ticket);
 
-            //System.out.println(ticketController.getAllTickets());
+            System.out.println(ticketController.getAllTicketsSortedById());
             MainPanel.mainRightPanel.clearTicketList();
             for(int i =0;i<ticketController.getAllTickets().size();i++){
                 MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).getOwner().toString());
