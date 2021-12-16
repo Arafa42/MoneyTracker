@@ -1,5 +1,4 @@
 package helper;
-
 import controller.BillController;
 import controller.TicketController;
 import controller.UserController;
@@ -8,7 +7,6 @@ import database.PersonsDB;
 import database.TicketsDB;
 import model.Bill;
 import model.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,9 +40,7 @@ public class Calculator {
                 }
             }
         }
-
-        System.out.println(billController.getAllBills());
-
+        //System.out.println(billController.getAllBills());
     }
 
 
@@ -63,7 +59,16 @@ public class Calculator {
                     if(userController.getAllUsersSortedById().get(j) != owner){
                         // IF TICKET IS SPLIT EVEN GET TOTAL AMOUNT OF TICKET EN DEEL DOOR TOTAL AMOUNT OF USERS IN DB
                         Double AmountToPayOwner = ticketController.getAllTickets().get(i).getTotalAmount() / userController.getAllUsersSortedById().size();
-                        System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + AmountToPayOwner);
+                        //System.out.println(userController.getAllUsersSortedById().get(j).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + AmountToPayOwner);
+                        for(int x = 0;x<billController.getAllBillsSortedById().size();x++){
+                            if(owner.getName() == billController.getAllBillsSortedById().get(x).getOwnerName()){
+                                for(int y=0;y<billController.getAllBillsSortedById().get(x).getAmountToReceive().size();y++){
+                                    if(("[" + userController.getAllUsersSortedById().get(j).getName() + "]").equals(billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).keySet().toString())) {
+                                        billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).put(userController.getAllUsersSortedById().get(j).getName(),AmountToPayOwner);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -71,10 +76,24 @@ public class Calculator {
                 for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
                     if(entry.getKey() != owner){
                         System.out.println(userController.getUserByName(entry.getKey().getName()).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
+                        for(int x = 0;x<billController.getAllBillsSortedById().size();x++){
+                            if(owner.getName() == billController.getAllBillsSortedById().get(x).getOwnerName()){
+                                for(int y=0;y<billController.getAllBillsSortedById().get(x).getAmountToReceive().size();y++){
+                                    if(("[" + userController.getUserByName(entry.getKey().getName()).getName() + "]").equals(billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).keySet().toString()))
+                                    {
+                                        billController.getAllBillsSortedById().get(x).getAmountToReceive().get(y).put(userController.getUserByName(entry.getKey().getName()).getName(), entry.getValue());
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+
+
+       System.out.println(billController.getAllBillsSortedById());
+
     }
 
 

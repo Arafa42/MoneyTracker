@@ -133,7 +133,7 @@ public class MainLeftPanel extends JPanel {
 
         ITicketFactory factory = FactoryProvider.getCinemaTicketFactory();
         Ticket cinemaTicket = factory.getTicket("cinema");
-        System.out.println(cinemaTicket);
+        //System.out.println(cinemaTicket);
         ticketTypesList[0] = (cinemaTicket.getName().toString());
         factory = FactoryProvider.getRestaurantTicketFactory();
         Ticket restoTick = factory.getTicket("resto");
@@ -176,7 +176,7 @@ public class MainLeftPanel extends JPanel {
             }
             ticketController.addTicket(ticket);
 
-            System.out.println(ticketController.getAllTickets());
+            //System.out.println(ticketController.getAllTickets());
             MainPanel.mainRightPanel.clearTicketList();
             for(int i =0;i<ticketController.getAllTickets().size();i++){
                 MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).getOwner().toString());
@@ -188,7 +188,7 @@ public class MainLeftPanel extends JPanel {
         this.delUser.addActionListener(listener ->{
             Integer s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
             ticketController.deleteTicketById(s);
-            System.out.println(ticketController.getAllTicketsSortedById());
+            //System.out.println(ticketController.getAllTicketsSortedById());
             DeleteTicketList(s);
         });
     }
@@ -196,7 +196,7 @@ public class MainLeftPanel extends JPanel {
 
     public void addToBillButtonActionListener(){
         this.lockButton.addActionListener(listener->{
-            System.out.println("CALCULATE");
+            //System.out.println("CALCULATE");
             calculate.BillCalculation();
         });
     }
