@@ -1,5 +1,9 @@
 package observers;
 
+import database.PersonsDB;
+import model.User;
+import register_entry.RegisterEntry;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,6 +12,10 @@ public class DatabaseObserver implements Observer {
     // propertychangelistener
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("DB UPDATED");
+        User user = (User) arg;
+        String nameUser = user.getName();
+        RegisterEntry registerEntry = PersonsDB.getInstance().getEntry((User) arg);
+
+        System.out.println("Name: "+nameUser+", and entry: "+ registerEntry);
     }
 }

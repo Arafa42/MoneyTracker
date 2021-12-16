@@ -10,6 +10,7 @@ import java.util.Observer;
 public class UserCreationObserver implements Observer {
     @Override
     public void update(Observable o, Object arg) {
+
         System.out.println("OBSERVED USER CREATED");
     }
 }
