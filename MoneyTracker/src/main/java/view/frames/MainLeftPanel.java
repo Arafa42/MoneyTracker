@@ -277,6 +277,8 @@ public class MainLeftPanel extends JPanel {
 
         //ADD USERS TO PAY OWNER IN HASHMAP
         for (int i =0;i<billController.getAllBills().size();i++) {
+            List<HashMap<String,Double>> hshmpList = new ArrayList<HashMap<String,Double>>();
+
             for(int j=0;j<userController.getAllUsersSortedById().size();j++){
 
                 if(billController.getAllBills().get(i).getOwnerName() != userController.getAllUsersSortedById().get(j).getName()){
@@ -284,7 +286,6 @@ public class MainLeftPanel extends JPanel {
                     System.out.println(billController.getAllBills().get(j).getOwnerName());
                     System.out.println(userController.getAllUsersSortedById().get(i).getName());
 
-                    List<HashMap<String,Double>> hshmpList = new ArrayList<HashMap<String,Double>>();
                     HashMap<String,Double> hshmp = new HashMap<String,Double>();
                     hshmp.put(userController.getAllUsersSortedById().get(i).getName(),0.0);
                     hshmpList.add(hshmp);
@@ -296,7 +297,7 @@ public class MainLeftPanel extends JPanel {
 
         System.out.println("-------------------------");
         System.out.println(billController.getAllBillsSortedById());
-        
+
     }
 
 
