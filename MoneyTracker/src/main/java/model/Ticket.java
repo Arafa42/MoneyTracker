@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ticket {
@@ -6,16 +7,19 @@ public class Ticket {
     private Double totalAmount;
     private String name;
     private User owner;
+    private User paidByUser;
+    private ArrayList<User> users;
     private Boolean splitEven;
     private HashMap<User,Double> unevenSplitAmount;
     private Integer id;
 
-    public Ticket(Double totalAmount, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
+    public Ticket(Double totalAmount,User getpaid, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
         this.totalAmount = totalAmount;
         this.name = name;
         this.owner = owner;
         this.splitEven = splitEven;
         this.unevenSplitAmount = unevenSplitAmount;
+        this.paidByUser = getPaidBy();
     }
 
     public Ticket(Double totalAmount, String name, User owner, Boolean splitEven){
@@ -25,6 +29,12 @@ public class Ticket {
         this.splitEven = splitEven;
     }
 
+    public Ticket(Double totalAmount, User paidByUser, ArrayList<User> users, Boolean splitEven) {
+        this.totalAmount = totalAmount;
+        this.paidByUser = paidByUser;
+        this.users = users;
+        this.splitEven = splitEven;
+    }
 
     public Ticket() {
 
@@ -46,8 +56,8 @@ public class Ticket {
     public void setSplitEven(Boolean splitEven) { this.splitEven = splitEven; }
     public HashMap<User,Double> getUnevenSplitAmount() { return unevenSplitAmount; }
     public void setUnevenSplitAmount(HashMap<User,Double> unevenSplitAmount) { this.unevenSplitAmount = unevenSplitAmount; }
-
-
+    public User getPaidBy() {return paidByUser;}
+    public ArrayList getPaidFor() {return getPaidFor();}
     @Override
     public String toString() {
         return "Ticket{" +

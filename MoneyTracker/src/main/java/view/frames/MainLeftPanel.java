@@ -164,15 +164,17 @@ public class MainLeftPanel extends JPanel {
             Boolean isEven = true;
             Ticket ticket;
 
-            if(even.isSelected()){ isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven); }
+            if(even.isSelected()){
+                isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven);
+            }
             else{
                 isEven = false;
                 for (int i=0;i<userController.getAllUsersSortedById().size();i++){
                     hashmap.put(userController.getAllUsersSortedById().get(i),Double.parseDouble(textFields.get(i).getText()));
                 }
-                ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
+                //ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
             }
-            ticketController.addTicket(ticket);
+            //ticketController.addTicket(ticket);
 
             System.out.println(ticketController.getAllTickets());
             MainPanel.mainRightPanel.clearTicketList();
