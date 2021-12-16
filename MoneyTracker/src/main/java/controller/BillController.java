@@ -1,8 +1,6 @@
 package controller;
 import database.DatabaseBills;
-import database.DatabaseTickets;
 import model.Bill;
-import model.Ticket;
 import register_entry.RegisterEntry;
 
 import java.util.List;
@@ -32,12 +30,10 @@ public class BillController implements IBill{
         return database.getAllBills();
     }
 
-
     @Override
     public List<Bill> getAllBillsSortedById() {
         return database.sortJsonArr();
     }
-
 
     @Override
     public void deleteBillById(int id) {

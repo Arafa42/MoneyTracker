@@ -40,13 +40,10 @@ public class TicketsDB extends DatabaseTickets{
         List<Ticket> ticketList = sortJsonArr();
         ticketList.remove(id);
         database.clear();
-        for(int i =0;i<ticketList.size();i++) {
-            database.put(ticketList.get(i), re);
-        }
+        for(int i =0;i<ticketList.size();i++) { database.put(ticketList.get(i), re); }
         setChanged();
         System.out.println("tickk : " + database.keySet());
     }
-
 
     @Override
     public List<Ticket> sortJsonArr() {
@@ -60,5 +57,4 @@ public class TicketsDB extends DatabaseTickets{
         Collections.sort(ticketList, comparator);
         return ticketList;
     }
-
 }

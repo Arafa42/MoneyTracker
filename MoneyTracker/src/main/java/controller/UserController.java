@@ -34,10 +34,7 @@ public class UserController implements IUser, Observer {
     }
 
     @Override
-    public User getUserByName(String name) {
-        return database.getUserByName(name);
-    }
-
+    public User getUserByName(String name) { return database.getUserByName(name); }
 
     @Override
     public void deleteUserById(int id) {
@@ -45,9 +42,6 @@ public class UserController implements IUser, Observer {
         database.deleteUserById(id,registerEntry);
     }
 
-
     @Override
-    public void update(Observable o, Object arg) {
-            System.out.println("Usercontroller observer blabla");
-    }
+    public void update(Observable o, Object arg) { System.out.println("Usercontroller observer blabla"); }
 }

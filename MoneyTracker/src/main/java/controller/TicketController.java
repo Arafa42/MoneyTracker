@@ -1,7 +1,6 @@
 package controller;
 import database.DatabaseTickets;
 import model.Ticket;
-import model.User;
 import register_entry.RegisterEntry;
 import java.util.List;
 
@@ -26,16 +25,12 @@ public class TicketController implements ITicket{
     }
 
     @Override
-    public List<Ticket> getAllTickets() {
-        return database.getAllTickets();
-    }
-
+    public List<Ticket> getAllTickets() { return database.getAllTickets(); }
 
     @Override
     public List<Ticket> getAllTicketsSortedById() {
         return database.sortJsonArr();
     }
-
 
     @Override
     public void deleteTicketById(int id) {

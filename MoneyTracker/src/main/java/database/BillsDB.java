@@ -9,10 +9,8 @@ import java.util.*;
 
 public class BillsDB extends DatabaseBills{
 
-
     private final HashMap<Bill, RegisterEntry> database;
     private static BillsDB singletonijn;
-
 
     public static BillsDB getInstance(){
         if(singletonijn == null){ singletonijn = new BillsDB(); }
@@ -22,7 +20,6 @@ public class BillsDB extends DatabaseBills{
     public BillsDB() {
         this.database = new HashMap<>();
     }
-
 
     @Override
     public void addEntry(Bill bill, RegisterEntry re) {
@@ -44,16 +41,12 @@ public class BillsDB extends DatabaseBills{
 
     @Override
     public void deleteBillById(int id,RegisterEntry re) {
-
         List<Bill> billList = sortJsonArr();
         billList.remove(id);
         database.clear();
-        for(int i =0;i<billList.size();i++) {
-            database.put(billList.get(i), re);
-        }
+        for(int i =0;i<billList.size();i++) { database.put(billList.get(i), re); }
         setChanged();
         System.out.println("bill : " + database.keySet());
-
     }
 
     @Override
@@ -68,6 +61,4 @@ public class BillsDB extends DatabaseBills{
         Collections.sort(billList, comparator);
         return billList;
     }
-
-
 }

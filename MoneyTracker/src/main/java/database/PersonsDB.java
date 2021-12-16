@@ -1,6 +1,4 @@
 package database;
-
-import com.sun.jdi.Value;
 import model.User;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
@@ -41,13 +39,10 @@ public class PersonsDB extends DatabasePersons{
 
     @Override
     public void deleteUserById(int id,RegisterEntry re) {
-
         List<User> userList = sortJsonArr();
         userList.remove(id);
         database.clear();
-        for(int i =0;i<userList.size();i++) {
-            database.put(userList.get(i), re);
-        }
+        for(int i =0;i<userList.size();i++) { database.put(userList.get(i), re); }
         setChanged();
         System.out.println("dekk : " + database.keySet());
     }
@@ -55,12 +50,7 @@ public class PersonsDB extends DatabasePersons{
     @Override
     public User getUserByName(String name) {
         ArrayList<User> userList = new ArrayList<>(database.keySet());
-        for(int i =0;i<userList.size();i++){
-
-            if(userList.get(i).getName().equals(name)){
-                return userList.get(i);
-            }
-        }
+        for(int i =0;i<userList.size();i++){ if(userList.get(i).getName().equals(name)){ return userList.get(i); } }
         return null;
     }
 
@@ -76,5 +66,4 @@ public class PersonsDB extends DatabasePersons{
         Collections.sort(userlist, comparator);
         return userlist;
     }
-
 }
