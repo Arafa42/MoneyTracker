@@ -1,11 +1,25 @@
 package observers;
 
+import database.PersonsDB;
+import model.Bill;
+import model.User;
+import register_entry.RegisterEntry;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
-
-public class BillObserver implements Observer {
+// Jens heeft gekeken en vondt het in orde omdit tegebruiken!
+// propertychangelistener
+public class BillObserver implements PropertyChangeListener {
     @Override
-    public void update(Observable o, Object arg) {
+    public void propertyChange(PropertyChangeEvent evt) {
+        Bill bill = (Bill) evt.getNewValue();
+        String owner =  bill.getOwnerName();
+
+
 
     }
+
+
 }
