@@ -7,12 +7,15 @@ import factory.ITicketFactory;
 import helper.Calculator;
 import model.Ticket;
 import model.User;
+import view.ViewFrame;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -214,6 +217,7 @@ public class MainLeftPanel extends JPanel {
             if(even.isSelected()){
                 isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven);
                 ticketController.addTicket(ticket);
+                ViewFrame.disableTab();
             }
             else{
                 Double sum = 0.0;
@@ -228,6 +232,7 @@ public class MainLeftPanel extends JPanel {
                     }
                     ticket = new Ticket(totalAmnt, name, owner, isEven, hashmap);
                     ticketController.addTicket(ticket);
+                    ViewFrame.disableTab();
                 }
 
                 else{

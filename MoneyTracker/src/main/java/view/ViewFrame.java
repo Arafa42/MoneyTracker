@@ -12,6 +12,8 @@ public class ViewFrame extends JFrame {
     private MainPanel mainPanel;
     protected RegistrationPanel registrationPanel;
     private CheckOutPanel checkOutPanel;
+    static JTabbedPane tabbedPane = new JTabbedPane();
+
 
     public ViewFrame(){super("MoneyTracker");}
 
@@ -28,14 +30,17 @@ public class ViewFrame extends JFrame {
         GridLayout layout = new GridLayout();
         this.setLayout(layout);
 
-        JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("create users",registrationPanel);
         tabbedPane.add("Money Tracker",mainPanel);
         tabbedPane.add("Bill",checkOutPanel);
-
         this.add(tabbedPane);
         this.setVisible(true);
     }
+
+    public static void disableTab(){
+        tabbedPane.setEnabledAt(0,false);
+    }
+
     public void switchPanels(){
         this.removeAll();
     }
