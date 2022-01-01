@@ -1,6 +1,4 @@
 package view.frames;
-
-import controller.BillController;
 import controller.TicketController;
 import controller.UserController;
 import database.*;
@@ -188,7 +186,6 @@ public class MainLeftPanel extends JPanel {
         this.delUser.addActionListener(listener ->{
             Integer s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
             ticketController.deleteTicketById(s);
-            //System.out.println(ticketController.getAllTicketsSortedById());
             DeleteTicketList(s);
         });
     }
@@ -196,7 +193,6 @@ public class MainLeftPanel extends JPanel {
 
     public void addToBillButtonActionListener(){
         this.lockButton.addActionListener(listener->{
-            //System.out.println("CALCULATE");
             calculate.BillCalculation();
         });
     }

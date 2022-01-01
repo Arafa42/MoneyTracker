@@ -9,6 +9,8 @@ import model.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class RegistrationLeftPanel extends JPanel {
     private DatabasePersons personsDB = PersonsDB.getInstance();
     private UserController userController = new UserController(personsDB);
     private DefaultListModel<String> lst = new DefaultListModel<>();
+    private boolean tnameNotEmpty,tsurnameNotEmpty,taddNotEmpty = false;
 
 
     private String dates[]
@@ -157,35 +160,17 @@ public class RegistrationLeftPanel extends JPanel {
 
         sub = new JButton("Create User");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
-        //sub.setSize(150, 20);
-        //sub.setLocation(50, 300);
-        //sub.addActionListener(this);
+        sub.setEnabled(false);
         buttonPanel.add(sub);
 
         reset = new JButton("Reset Form");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        //reset.setSize(150, 20);
-        //reset.setLocation(250, 300);
-        //reset.addActionListener(this);
         buttonPanel.add(reset);
-
-        //userList = new JList(lst);
-        //userList.setSize(400,300);
-        //userList.setLocation(450,0);
-        //c.add(userList);
 
         delUser = new JButton("Remove User");
         delUser.setFont(new Font("Arial",Font.PLAIN,15));
-        //delUser.setSize(150,20);
-        //delUser.setLocation(250,330);
-        //delUser.addActionListener(this);
         buttonPanel.add(delUser);
 
-        //JScrollPane scrollPane = new JScrollPane(userList);
-        //scrollPane.setVisible(true);
-        //scrollPane.setSize(435,362);
-        //scrollPane.setLocation(450,0);
-        //this.add(scrollPane);
         buttonPanel.setSize(300,50);
         buttonPanel.setLocation(15,290);
         buttonPanel.setLayout(new GridLayout(2,2,10,10));
@@ -193,10 +178,69 @@ public class RegistrationLeftPanel extends JPanel {
 
         setVisible(true);
 
-
         createUserButtonActionListener();
         removeUserButtonActionListener();
         resetFormButtonActionListener();
+
+
+        //--------------------EMPTY FIELD VALIDATION PART---------------------------
+
+        tname.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { changed(); }
+            public void changed(){
+                if(tname.getText().equals("")){
+                    tnameNotEmpty = false;
+                    sub.setEnabled(false);
+                }
+                else{
+                    tnameNotEmpty = true;
+                    if(tnameNotEmpty && tsurnameNotEmpty && taddNotEmpty){sub.setEnabled(true);}
+                }
+            }
+        });
+
+        tsurName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { changed(); }
+            public void changed(){
+                if(tsurName.getText().equals("")){
+                    tsurnameNotEmpty = false;
+                    sub.setEnabled(false);
+                }
+                else{
+                    tsurnameNotEmpty = true;
+                    if(tnameNotEmpty && tsurnameNotEmpty && taddNotEmpty){sub.setEnabled(true);}
+                }
+            }
+        });
+
+        tadd.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { changed(); }
+            public void changed(){
+                if(tadd.getText().equals("")){
+                    taddNotEmpty = false;
+                    sub.setEnabled(false);
+                }
+                else{
+                    taddNotEmpty = true;
+                    if(tnameNotEmpty && tsurnameNotEmpty && taddNotEmpty){sub.setEnabled(true);}
+                }
+            }
+        });
 
     }
 
@@ -238,6 +282,7 @@ public class RegistrationLeftPanel extends JPanel {
 
 
 
+
     public void DeleteUserList(Integer index){
         RegistrationPanel.registrationRightPanel.removeElementFromList(index);
         MainPanel.mainRightPanel.removeElementFromList(index);
@@ -256,6 +301,12 @@ public class RegistrationLeftPanel extends JPanel {
         date.setSelectedIndex(0);
         month.setSelectedIndex(0);
         year.setSelectedIndex(0);
+        tnameNotEmpty = false;
+        tsurnameNotEmpty = false;
+        taddNotEmpty = false;
     }
+
+
+
 
 }
