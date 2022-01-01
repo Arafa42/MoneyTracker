@@ -2,6 +2,8 @@ package view.frames;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 public class MainRightPanel extends JPanel {
@@ -30,11 +32,14 @@ public class MainRightPanel extends JPanel {
         scrollPane2.setVisible(true);
         this.add(scrollPane2);
 
+        this.setVisible(true);
+
     }
     public void addElementToUserList(String elem){ lst.addElement(elem); }
     public void removeElementFromList(Integer index){lst.remove(index);}
     public void addElementToTicketList(String elem){ tcktlst.addElement(elem); }
     public void clearTicketList(){tcktlst.clear();}
     public void removeElementFromTicketList(Integer index){tcktlst.remove(index);}
+
 
 }

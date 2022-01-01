@@ -9,7 +9,13 @@ import model.Ticket;
 import model.User;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,6 +46,8 @@ public class MainLeftPanel extends JPanel {
     JPanel pne = new JPanel();
     private JButton lockButton;
     Calculator calculate = new Calculator();
+    Integer selected = -1;
+    boolean hasText = false;
 
 
     public MainLeftPanel(){
@@ -100,6 +108,7 @@ public class MainLeftPanel extends JPanel {
 
         sub = new JButton("Create ticket");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
+        sub.setEnabled(false);
         //sub.setSize(150, 20);
         //sub.setLocation(10, 300);
 
@@ -149,6 +158,46 @@ public class MainLeftPanel extends JPanel {
         addToBillButtonActionListener();
 
         setVisible(true);
+
+        MainPanel.mainRightPanel.userList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                selected = MainPanel.mainRightPanel.userList.getSelectedIndex();
+            }
+        });
+
+
+        tAmnt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { changed(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { changed(); }
+            public void changed(){
+                if(tAmnt.getText().equals("")){
+                    sub.setEnabled(false);
+                    hasText = false;
+                }
+                else{
+                    hasText = true;
+                    if(selected >= 0 && hasText) {
+                        sub.setEnabled(true);
+                    }
+                }
+            }
+        });
+
+
+        tAmnt.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE ) || (c==KeyEvent.VK_PERIOD))) {
+                    e.consume();  // ignore the event if it's not an alphabet
+                }
+            }
+        });
+
     }
 
 
@@ -160,19 +209,33 @@ public class MainLeftPanel extends JPanel {
             User owner = userController.getAllUsersSortedById().get(MainPanel.mainRightPanel.userList.getSelectedIndex());
             Boolean isEven = true;
             HashMap<User,Double>  hashmap = new HashMap<User,Double>();
-            Ticket ticket;
+            Ticket ticket = null;
 
             if(even.isSelected()){
                 isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven);
+                ticketController.addTicket(ticket);
             }
             else{
-                isEven = false;
-                for (int i=0;i<userController.getAllUsersSortedById().size();i++){
-                    hashmap.put(userController.getAllUsersSortedById().get(i),Double.parseDouble(textFields.get(i).getText()));
+                Double sum = 0.0;
+                for(int i=0;i<textFields.size();i++){
+                    sum += Double.parseDouble(textFields.get(i).getText());
                 }
-                ticket = new Ticket(totalAmnt,name,owner,isEven,hashmap);
+
+                if(sum.equals(totalAmnt)) {
+                    isEven = false;
+                    for (int i = 0; i < userController.getAllUsersSortedById().size(); i++) {
+                        hashmap.put(userController.getAllUsersSortedById().get(i), Double.parseDouble(textFields.get(i).getText()));
+                    }
+                    ticket = new Ticket(totalAmnt, name, owner, isEven, hashmap);
+                    ticketController.addTicket(ticket);
+                }
+
+                else{
+                    JOptionPane.showMessageDialog(null,"CHECK IF SUM OF FIELDS IS EQUAL TO TOTAL AMOUNT !");
+                }
+
             }
-            ticketController.addTicket(ticket);
+
 
             System.out.println(ticketController.getAllTicketsSortedById());
             MainPanel.mainRightPanel.clearTicketList();

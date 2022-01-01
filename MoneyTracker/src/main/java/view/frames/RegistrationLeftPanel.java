@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -238,6 +240,36 @@ public class RegistrationLeftPanel extends JPanel {
                 else{
                     taddNotEmpty = true;
                     if(tnameNotEmpty && tsurnameNotEmpty && taddNotEmpty){sub.setEnabled(true);}
+                }
+            }
+        });
+
+
+        //--------------------- ONLY ALPHABET VALIDATION ----------------------------
+
+        tname.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE )) {
+                    e.consume();  // ignore the event if it's not an alphabet
+                }
+            }
+        });
+
+        tsurName.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE )) {
+                    e.consume();  // ignore the event if it's not an alphabet
+                }
+            }
+        });
+
+        tadd.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE )) {
+                    e.consume();  // ignore the event if it's not an alphabet
                 }
             }
         });
