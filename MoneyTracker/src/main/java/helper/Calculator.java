@@ -92,11 +92,66 @@ public class Calculator {
                 }
             }
         }
+        //System.out.println(billController.getAllBillsSortedById());
 
-
-       System.out.println(billController.getAllBillsSortedById());
+        FinishBillCalculation();
 
     }
+
+
+    public void FinishBillCalculation() {
+
+        List<Bill> billList = billController.getAllBillsSortedById();
+        String currOwner = "";
+
+        for (int i = 0; i < billController.getAllBillsSortedById().size(); i++) {
+            currOwner = billList.get(i).getOwnerName();
+            for (int j = 0; j < billList.get(i).getAmountToReceive().size(); j++) {
+                System.out.println("FOR CUREEENT OWNER : " + currOwner + " HAS TO RECEIVE FROM : " + billList.get(i).getAmountToReceive().get(j).keySet().toString() + "NEXT AMOUNT : " + billList.get(i).getAmountToReceive().get(j).values());
+
+                String nameOfAmountToReceive = removeFirstandLast(billList.get(i).getAmountToReceive().get(j).keySet().toString());
+
+//                System.out.println(billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive());
+
+                for (int x = 0; x < billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().size(); x++) {
+                    if (billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x).keySet().toString().equals('[' + currOwner + ']')) {
+
+                        System.out.println("CURR OWNER : " + billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName() + "HAS TO RECEIVE : " + billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x));
+                        Double toReceiveFirstOwner = Double.parseDouble(removeFirstandLast(billList.get(i).getAmountToReceive().get(j).values().toString()));
+                        Double toReceiveSecondOwner = Double.parseDouble(removeFirstandLast(billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x).values().toString()));
+
+                        if(toReceiveFirstOwner > toReceiveSecondOwner){
+                            billController.getBillByOwnerName(currOwner).getAmountToReceive().get(x).replace(nameOfAmountToReceive,toReceiveFirstOwner-toReceiveSecondOwner);
+                            billController.getBillByOwnerName(billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName()).getAmountToReceive().get(x).replace(currOwner,0.0);
+                        }
+                        else if(toReceiveFirstOwner < toReceiveSecondOwner){
+                            billController.getBillByOwnerName(currOwner).getAmountToReceive().get(x).replace(nameOfAmountToReceive,0.0);
+                            billController.getBillByOwnerName(billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName()).getAmountToReceive().get(x).replace(currOwner,toReceiveSecondOwner-toReceiveFirstOwner);
+                        }
+                        else{
+                            billController.getBillByOwnerName(currOwner).getAmountToReceive().get(x).replace(nameOfAmountToReceive,0.0);
+                            billController.getBillByOwnerName(billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName()).getAmountToReceive().get(x).replace(currOwner,0.0);
+                        }
+                    }
+                }
+                System.out.println(billController.getAllBillsSortedById());
+            }
+        }
+    }
+
+
+    public String removeFirstandLast(String str)
+    {
+
+        // Removing first and last character
+        // of a string using substring() method
+        str = str.substring(1, str.length() - 1);
+
+        // Return the modified string
+        return str;
+    }
+
+
 
 
 }

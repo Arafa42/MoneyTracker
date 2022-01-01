@@ -1,5 +1,7 @@
 package controller;
 import model.Bill;
+import model.Ticket;
+
 import java.util.List;
 
 public interface IBill {
@@ -7,5 +9,6 @@ public interface IBill {
     void removeBill(Bill b);
     List<Bill> getAllBills();
     List<Bill> getAllBillsSortedById();
+    Bill getBillByOwnerName(String name);
     void deleteBillById(int id);
 }

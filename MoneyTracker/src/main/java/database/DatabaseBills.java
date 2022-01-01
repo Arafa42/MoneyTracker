@@ -1,5 +1,6 @@
 package database;
 import model.Bill;
+import model.User;
 import register_entry.RegisterEntry;
 import java.util.List;
 import java.util.Observable;
@@ -11,6 +12,7 @@ public abstract class DatabaseBills extends Observable {
     public abstract RegisterEntry getEntry(Bill bill);
     public abstract List<Bill> getAllBills();
     public abstract void deleteBillById(int id, RegisterEntry re);
+    public abstract Bill getBillByOwnerName(String name);
     public abstract List<Bill> sortJsonArr();
 
 }

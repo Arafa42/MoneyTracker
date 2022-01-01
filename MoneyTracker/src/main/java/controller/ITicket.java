@@ -1,5 +1,6 @@
 package controller;
 import model.Ticket;
+import model.User;
 
 import java.util.List;
 

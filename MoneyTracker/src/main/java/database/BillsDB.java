@@ -50,6 +50,13 @@ public class BillsDB extends DatabaseBills{
     }
 
     @Override
+    public Bill getBillByOwnerName(String name) {
+        ArrayList<Bill> billsList = new ArrayList<>(database.keySet());
+        for(int i =0;i<billsList.size();i++){ if(billsList.get(i).getOwnerName().equals(name)){ return billsList.get(i); } }
+        return null;
+    }
+
+    @Override
     public List<Bill> sortJsonArr() {
         ArrayList<Bill> billList = new ArrayList<Bill>(database.keySet());
         Comparator<Bill> comparator = new Comparator<Bill>() {

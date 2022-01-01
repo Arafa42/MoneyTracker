@@ -36,6 +36,11 @@ public class BillController implements IBill{
     }
 
     @Override
+    public Bill getBillByOwnerName(String name) {
+        return database.getBillByOwnerName(name);
+    }
+
+    @Override
     public void deleteBillById(int id) {
         RegisterEntry registerEntry = new RegisterEntry(false);
         database.deleteBillById(id,registerEntry);
