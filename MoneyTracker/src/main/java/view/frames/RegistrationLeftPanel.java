@@ -4,12 +4,14 @@ import com.sun.tools.javac.Main;
 import controller.UserController;
 import database.DatabasePersons;
 import database.PersonsDB;
+import iterator.UserBar;
 import model.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationLeftPanel extends JPanel {
     private JLabel title;
@@ -228,6 +230,9 @@ public class RegistrationLeftPanel extends JPanel {
     public void resetFormButtonActionListener(){
         this.reset.addActionListener(listener -> {
             resetForm();
+            List<User> userList = userController.getAllUsersSortedById();
+            UserBar ub = new UserBar(userList);
+            ub.printNotifications();
         });
     }
 
