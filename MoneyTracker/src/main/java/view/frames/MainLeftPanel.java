@@ -254,7 +254,7 @@ public class MainLeftPanel extends JPanel {
         this.delUser.addActionListener(listener ->{
             Integer s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
             ticketController.deleteTicketById(s);
-            DeleteTicketList(s);
+            deleteTicketList(s);
         });
     }
 
@@ -304,7 +304,7 @@ public class MainLeftPanel extends JPanel {
         repaint();
     }
 
-    public void DeleteTicketList(Integer index){
+    public void deleteTicketList(Integer index){
         MainPanel.mainRightPanel.removeElementFromTicketList(index);
     }
 
