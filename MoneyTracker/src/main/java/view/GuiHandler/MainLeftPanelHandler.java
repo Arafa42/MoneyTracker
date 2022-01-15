@@ -1,12 +1,10 @@
 package view.GuiHandler;
-
 import controller.TicketController;
 import controller.UserController;
 import model.Ticket;
 import model.User;
 import view.ViewFrame;
 import view.frames.MainPanel;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;

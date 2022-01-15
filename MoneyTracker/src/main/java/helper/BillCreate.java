@@ -1,12 +1,13 @@
 package helper;
 
 import controller.BillController;
-import controller.TicketController;
 import controller.UserController;
 import database.BillsDB;
 import database.PersonsDB;
-import database.TicketsDB;
+import iterator.Iterator;
+import iterator.UserRepository;
 import model.Bill;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +24,12 @@ public class BillCreate {
     public void BillCreation(){
         List<HashMap<String,Double>> amountToReceive = new ArrayList<HashMap<String,Double>>();
 
-        for (int i =0;i<userController.getAllUsersSortedById().size();i++){
-            Bill bill = new Bill(amountToReceive,userController.getAllUsersSortedById().get(i).getName().toString());
+        //ITERATOR USAGE FOR USERS
+        UserRepository namesRepository = new UserRepository();
+
+        for(Iterator iter = namesRepository.createIterator(); iter.hasNext();){
+            User user = (User)iter.next();
+            Bill bill = new Bill(amountToReceive,user.getName().toString());
             billController.addBill(bill);
         }
 
