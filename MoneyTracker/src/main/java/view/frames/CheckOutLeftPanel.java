@@ -1,8 +1,6 @@
 package view.frames;
-
 import controller.BillController;
 import database.BillsDB;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

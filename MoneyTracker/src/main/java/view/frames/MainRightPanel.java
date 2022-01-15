@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainRightPanel extends JPanel {
-    protected JList userList;
+    public JList userList;
     protected JList ticketList;
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private DefaultListModel<String> tcktlst = new DefaultListModel<>();

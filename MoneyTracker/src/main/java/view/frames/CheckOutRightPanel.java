@@ -1,7 +1,7 @@
 package view.frames;
 import controller.BillController;
 import database.BillsDB;
-
+import view.GuiHandler.CheckOutRightPanelHandler;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,6 +15,7 @@ public class CheckOutRightPanel extends JPanel {
     private JScrollPane scrollPane;
     private BillsDB billsDB = BillsDB.getInstance();
     private BillController billController = new BillController(billsDB);
+    CheckOutRightPanelHandler checkOutRightPanelHandler = new CheckOutRightPanelHandler();
 
     public CheckOutRightPanel(){
         this.setLayout(new GridLayout(1,0));
@@ -22,14 +23,7 @@ public class CheckOutRightPanel extends JPanel {
         userList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                String owner = billController.getAllBillsSortedById().get(userList.getSelectedIndex()).getOwnerName();
-                CheckOutPanel.checkOutLeftPanel.setName(owner);
-                CheckOutPanel.checkOutLeftPanel.clearOverviewList();
-                for (int i = 0; i < billController.getAllBillsSortedById().get(userList.getSelectedIndex()).getAmountToReceive().size(); i++) {
-                    String name = removeFirstandLast(billController.getAllBillsSortedById().get(userList.getSelectedIndex()).getAmountToReceive().get(i).keySet().toString());
-                    String val = removeFirstandLast(billController.getAllBillsSortedById().get(userList.getSelectedIndex()).getAmountToReceive().get(i).values().toString());
-                    CheckOutPanel.checkOutLeftPanel.addElementToOverview("user " + name + " an amount of " + val);
-                }
+                checkOutRightPanelHandler.userListSelectionOnChange(billController,userList);
             }
         });
         this.add(userList);
@@ -41,10 +35,5 @@ public class CheckOutRightPanel extends JPanel {
 
     public void addElementToUserList(String elem){ lst.addElement(elem); }
 
-    public String removeFirstandLast(String str)
-    {
-        str = str.substring(1, str.length() - 1);
-        return str;
-    }
 
 }

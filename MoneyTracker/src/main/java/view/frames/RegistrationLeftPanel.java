@@ -1,9 +1,6 @@
 package view.frames;
-import controller.UserController;
-import database.DatabasePersons;
-import database.PersonsDB;
-import iterator.UserBar;
 import model.User;
+import view.GuiHandler.RegistrationLeftPanelHandler;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -11,7 +8,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 public class RegistrationLeftPanel extends JPanel {
     private JLabel title;
@@ -33,10 +29,9 @@ public class RegistrationLeftPanel extends JPanel {
     private JButton reset;
     private JButton delUser;
     private JPanel panel = new JPanel();
-    private DatabasePersons personsDB = PersonsDB.getInstance();
-    private UserController userController = new UserController(personsDB);
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private boolean tnameNotEmpty,tsurnameNotEmpty,taddNotEmpty = false;
+    RegistrationLeftPanelHandler registrationLeftPanelHandler = new RegistrationLeftPanelHandler();
 
 
     private String dates[]
@@ -282,7 +277,7 @@ public class RegistrationLeftPanel extends JPanel {
             else{gender = "Female";}
             String address = tadd.getText();
             User user = new User(name,surname,birthday,gender,address,0.0);
-            userController.addUser(user);
+            registrationLeftPanelHandler.createUserListener(user);
             updateUserList();
             resetForm();
         });
@@ -291,7 +286,7 @@ public class RegistrationLeftPanel extends JPanel {
     public void removeUserButtonActionListener(){
         this.delUser.addActionListener(listener ->{
            Integer s =  RegistrationPanel.registrationRightPanel.userList.getSelectedIndex();
-           userController.deleteUserById(s);
+           registrationLeftPanelHandler.deleteUserListener(s);
             DeleteUserList(s);
         });
     }
@@ -308,8 +303,8 @@ public class RegistrationLeftPanel extends JPanel {
     }
 
     public void updateUserList(){
-        MainPanel.mainRightPanel.addElementToUserList(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
-        RegistrationPanel.registrationRightPanel.addElementToList(userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getName().toString() + " " + userController.getAllUsersSortedById().get(userController.getAllUsersSortedById().size()-1).getSurname().toString());
+        MainPanel.mainRightPanel.addElementToUserList(registrationLeftPanelHandler.addElementUserlistListener());
+        RegistrationPanel.registrationRightPanel.addElementToList(registrationLeftPanelHandler.addElementUserlistListener());
     }
 
     public void resetForm(){
