@@ -37,8 +37,12 @@ public class ViewFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void disableTab(){
-        tabbedPane.setEnabledAt(0,false);
+    public static void disableTab(int index){
+        tabbedPane.setEnabledAt(index,false);
+    }
+
+    public static void switchFromTab(int index){
+        tabbedPane.setSelectedIndex(index);
     }
 
     public void switchPanels(){

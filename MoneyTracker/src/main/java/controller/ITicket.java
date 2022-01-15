@@ -10,5 +10,6 @@ public interface ITicket {
     List<Ticket> getAllTickets();
     List<Ticket> getAllTicketsSortedById();
     void deleteTicketById(int id);
+    String deleteAllTickets();
 
 }

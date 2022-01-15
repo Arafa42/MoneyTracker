@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class CheckOutPanel extends JPanel {
 
-    protected CheckOutRightPanel checkOutRightPanel;
-    private CheckOutLeftPanel checkOutLeftPanel;
+    public static  CheckOutRightPanel checkOutRightPanel;
+    public static  CheckOutLeftPanel checkOutLeftPanel;
 
     public CheckOutPanel(){
         checkOutRightPanel = new CheckOutRightPanel();

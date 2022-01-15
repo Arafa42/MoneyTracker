@@ -9,10 +9,9 @@ import java.util.List;
 
 public class UserBar {
 
-    PersonsDB personsDB = PersonsDB.getInstance();
-    UserController userController = new UserController(personsDB);
-    List<User> userList = userController.getAllUsersSortedById();
-
+    private PersonsDB personsDB = PersonsDB.getInstance();
+    private UserController userController = new UserController(personsDB);
+    private List<User> userList = userController.getAllUsersSortedById();
     public UserBar(List<User> userList)
     {
         this.userList = userList;

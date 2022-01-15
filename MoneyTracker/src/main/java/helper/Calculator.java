@@ -50,6 +50,7 @@ public class Calculator {
 
         //GET ALL TICKETS
         for (int i=0;i<ticketController.getAllTickets().size();i++){
+            System.out.println("TICKCKCKCKKC : " + ticketController.getAllTickets().get(i));
 
             //GET OWNER OF CURRENT TICKET
             User owner = ticketController.getAllTickets().get(i).getOwner();
@@ -73,10 +74,10 @@ public class Calculator {
                 }
             }
             else {
-                System.out.println("TICKETS : " + ticketController.getAllTickets().get(i).getUnevenSplitAmount());
+                //System.out.println("TICKETS : " + ticketController.getAllTickets().get(i).getUnevenSplitAmount());
                 for (Map.Entry<User, Double> entry : ticketController.getAllTickets().get(i).getUnevenSplitAmount().entrySet()){
                     if(entry.getKey() != owner){
-                        System.out.println(userController.getUserByName(entry.getKey().getName()).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
+                        //System.out.println(userController.getUserByName(entry.getKey().getName()).getName() + " HAS TO PAY " + owner.getName() + "NEXT AMOUNT : " + entry.getValue());
                         for(int x = 0;x<billController.getAllBillsSortedById().size();x++){
                             if(owner.getName() == billController.getAllBillsSortedById().get(x).getOwnerName()){
                                 for(int y=0;y<billController.getAllBillsSortedById().get(x).getAmountToReceive().size();y++){
@@ -107,7 +108,7 @@ public class Calculator {
         for (int i = 0; i < billController.getAllBillsSortedById().size(); i++) {
             currOwner = billList.get(i).getOwnerName();
             for (int j = 0; j < billList.get(i).getAmountToReceive().size(); j++) {
-                System.out.println("FOR CUREEENT OWNER : " + currOwner + " HAS TO RECEIVE FROM : " + billList.get(i).getAmountToReceive().get(j).keySet().toString() + "NEXT AMOUNT : " + billList.get(i).getAmountToReceive().get(j).values());
+                //System.out.println("FOR CUREEENT OWNER : " + currOwner + " HAS TO RECEIVE FROM : " + billList.get(i).getAmountToReceive().get(j).keySet().toString() + "NEXT AMOUNT : " + billList.get(i).getAmountToReceive().get(j).values());
 
                 String nameOfAmountToReceive = removeFirstandLast(billList.get(i).getAmountToReceive().get(j).keySet().toString());
 
@@ -116,7 +117,7 @@ public class Calculator {
                 for (int x = 0; x < billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().size(); x++) {
                     if (billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x).keySet().toString().equals('[' + currOwner + ']')) {
 
-                        System.out.println("CURR OWNER : " + billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName() + "HAS TO RECEIVE : " + billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x));
+                        //System.out.println("CURR OWNER : " + billController.getBillByOwnerName(nameOfAmountToReceive).getOwnerName() + "HAS TO RECEIVE : " + billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x));
                         Double toReceiveFirstOwner = Double.parseDouble(removeFirstandLast(billList.get(i).getAmountToReceive().get(j).values().toString()));
                         Double toReceiveSecondOwner = Double.parseDouble(removeFirstandLast(billController.getBillByOwnerName(nameOfAmountToReceive).getAmountToReceive().get(x).values().toString()));
 

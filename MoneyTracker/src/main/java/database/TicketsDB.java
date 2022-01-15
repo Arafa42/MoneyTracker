@@ -1,9 +1,7 @@
 package database;
 import model.Ticket;
-import model.User;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
-
 import java.util.*;
 
 public class TicketsDB extends DatabaseTickets{
@@ -33,6 +31,14 @@ public class TicketsDB extends DatabaseTickets{
     public List<Ticket> getAllTickets() {
         ArrayList<Ticket> ticketList = new ArrayList<Ticket>(database.keySet());
         return ticketList;
+    }
+
+    @Override
+    public String deleteAllTickets() {
+        this.database.clear();
+        setChanged();
+        notifyObservers();
+        return "All tickets removed from DB";
     }
 
     @Override

@@ -1,6 +1,5 @@
 package controller;
 import model.Bill;
-import model.Ticket;
 
 import java.util.List;
 

@@ -1,4 +1,5 @@
 package view.frames;
+import controller.BillController;
 import controller.TicketController;
 import controller.UserController;
 import database.*;
@@ -44,14 +45,15 @@ public class MainLeftPanel extends JPanel {
     private JTextField j;
     private JLabel l;
     private JComboBox ticketTypes;
-    private String[] ticketTypesList = new String[2];
+    private String[] ticketTypesList = new String[5];
     Integer rowCount = 0;
     JPanel pne = new JPanel();
     private JButton lockButton;
     Calculator calculate = new Calculator();
     Integer selected = -1;
     boolean hasText = false;
-
+    private BillsDB billsDB = BillsDB.getInstance();
+    private BillController billController = new BillController(billsDB);
 
     public MainLeftPanel(){
 
@@ -112,26 +114,17 @@ public class MainLeftPanel extends JPanel {
         sub = new JButton("Create ticket");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
         sub.setEnabled(false);
-        //sub.setSize(150, 20);
-        //sub.setLocation(10, 300);
-
         buttonPanel.add(sub);
 
         reset = new JButton("Reset Form");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        //reset.setSize(150, 20);
-        //reset.setLocation(150, 300);
-
         buttonPanel.add(reset);
 
         delUser = new JButton("Remove Ticket");
         delUser.setFont(new Font("Arial",Font.PLAIN,15));
-        //delUser.setSize(150,20);
-        //delUser.setLocation(150,330);
-
         buttonPanel.add(delUser);
 
-        lockButton = new JButton("Add to Bill");
+        lockButton = new JButton("Calculate");
         lockButton.setFont(new Font("Arial",Font.PLAIN,15));
         buttonPanel.add(lockButton);
 
@@ -142,11 +135,19 @@ public class MainLeftPanel extends JPanel {
 
         ITicketFactory factory = FactoryProvider.getCinemaTicketFactory();
         Ticket cinemaTicket = factory.getTicket("cinema");
-        //System.out.println(cinemaTicket);
         ticketTypesList[0] = (cinemaTicket.getName().toString());
         factory = FactoryProvider.getRestaurantTicketFactory();
         Ticket restoTick = factory.getTicket("resto");
         ticketTypesList[1] = (restoTick.getName());
+        factory = FactoryProvider.getFlightTicketFactory();
+        Ticket flightTick = factory.getTicket("flight");
+        ticketTypesList[2] = (flightTick.getName());
+        factory = FactoryProvider.getConcertTicketFactory();
+        Ticket concTick = factory.getTicket("concert");
+        ticketTypesList[3] = (concTick.getName());
+        factory = FactoryProvider.getOtherTicketFactory();
+        Ticket otherTick = factory.getTicket("other");
+        ticketTypesList[4] = (otherTick.getName());
 
         ticketTypes = new JComboBox(ticketTypesList);
         ticketTypes.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -159,6 +160,7 @@ public class MainLeftPanel extends JPanel {
         unEvenButtonActionListener();
         removeTicketButtonActionListener();
         addToBillButtonActionListener();
+        resetBtnActionListener();
 
         setVisible(true);
 
@@ -217,7 +219,7 @@ public class MainLeftPanel extends JPanel {
             if(even.isSelected()){
                 isEven = true; ticket = new Ticket(totalAmnt,name,owner,isEven);
                 ticketController.addTicket(ticket);
-                ViewFrame.disableTab();
+                ViewFrame.disableTab(0);
             }
             else{
                 Double sum = 0.0;
@@ -232,7 +234,6 @@ public class MainLeftPanel extends JPanel {
                     }
                     ticket = new Ticket(totalAmnt, name, owner, isEven, hashmap);
                     ticketController.addTicket(ticket);
-                    ViewFrame.disableTab();
                 }
 
                 else{
@@ -261,7 +262,27 @@ public class MainLeftPanel extends JPanel {
 
     public void addToBillButtonActionListener(){
         this.lockButton.addActionListener(listener->{
-            calculate.BillCalculation();
+         int res = JOptionPane.showConfirmDialog(null, "Are you sure that you added all the tickets ?");
+            if(res == 0) {
+                calculate.BillCalculation();
+                ticketController.deleteAllTickets();
+                MainPanel.mainRightPanel.clearTicketList();
+                for(int i=0;i<billController.getAllBillsSortedById().size();i++){
+                    CheckOutPanel.checkOutRightPanel.addElementToUserList(billController.getAllBillsSortedById().get(i).getOwnerName());
+                }
+                ViewFrame.switchFromTab(2);
+                ViewFrame.disableTab(1);
+
+            }
+            });
+    }
+
+    public void resetBtnActionListener(){
+        this.reset.addActionListener(listeenr->{
+            tAmnt.setText("");
+            for(int i=0;i<textFields.size();i++) {
+                textFields.get(i).setText("");
+            }
         });
     }
 

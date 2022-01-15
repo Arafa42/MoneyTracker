@@ -38,5 +38,10 @@ public class TicketController implements ITicket{
         database.deleteTicketById(id,registerEntry);
     }
 
+    @Override
+    public String deleteAllTickets() {
+        return database.deleteAllTickets();
+    }
+
 
 }

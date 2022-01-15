@@ -1,5 +1,8 @@
 package view.frames;
 
+import controller.BillController;
+import database.BillsDB;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -8,14 +11,15 @@ public class CheckOutLeftPanel extends JPanel {
     private JLabel title;
     private JLabel subTitle;
     private JPanel bill;
-    private SpringLayout springLayoutPanel;
     private JLabel ownerName;
-    private JLabel name;
     private JLabel amnt;
-    private JLabel amntToPay;
-
-
+    private BillsDB billsDB = BillsDB.getInstance();
+    private BillController billController = new BillController(billsDB);
     private JButton payButton;
+    private JLabel name;
+    private JList userList;
+    private DefaultListModel<String> lst = new DefaultListModel<>();
+    private JScrollPane scrollPane;
 
     public CheckOutLeftPanel(){
         this.setLayout(null);
@@ -27,37 +31,40 @@ public class CheckOutLeftPanel extends JPanel {
         title.setLocation(10,20);
         this.add(title);
 
-        subTitle = new JLabel("Choose a user for paying his debt ->");
+        subTitle = new JLabel("SELECT A RECIPIENT ->");
         subTitle.setFont(new Font("Arial", Font.BOLD,14));
         subTitle.setSize(300,20);
         subTitle.setLocation(10,55);
         this.add(subTitle);
 
+        name = new JLabel("DEFAULT NAME");
+        name.setSize(300,20);
+        name.setLocation(60,100);
+        name.setForeground(Color.BLUE);
+        this.add(name);
+
+        userList = new JList(lst);
+        this.add(userList);
+        scrollPane = new JScrollPane(userList);
+        scrollPane.setVisible(true);
+        scrollPane.setLocation(10,150);
+        scrollPane.setSize(250,120);
+        this.add(scrollPane);
 
         bill = new JPanel();
-        springLayoutPanel = new SpringLayout();
 
-        ownerName = new JLabel("Owner name:");
-        name = new JLabel("arafa");
+        ownerName = new JLabel("USER :");
 
-        amnt = new JLabel("Amount:");
-        amntToPay = new JLabel("330euro");
+        amnt = new JLabel("HAS TO RECEIVE FROM :");
+        amnt.setSize(300,30);
+
 
         bill.add(ownerName);
-        bill.add(name);
         bill.add(amnt);
-        bill.add(amntToPay);
-        //springLayoutPanel.putConstraint(SpringLayout.WEST, ownerName, 10, SpringLayout.WEST, bill);
-        //springLayoutPanel.putConstraint(SpringLayout.NORTH, ownerName, 25, SpringLayout.NORTH, bill);
-        //springLayoutPanel.putConstraint(SpringLayout.NORTH, name, 25, SpringLayout.NORTH, bill);
-        //springLayoutPanel.putConstraint(SpringLayout.WEST, name, 20, SpringLayout.EAST, ownerName);
-
         bill.setLayout(new GridLayout(2,1));
         bill.setSize(250,40);
         bill.setLocation(10,100);
         this.add(bill);
-
-
 
         payButton = new JButton("Pay");
         payButton.setFont(new Font("Arial",Font.PLAIN,15));
@@ -65,8 +72,13 @@ public class CheckOutLeftPanel extends JPanel {
         payButton.setSize(90,20);
         this.add(payButton);
 
-
         this.setVisible(true);
     }
+
+    public void addElementToOverview(String elem){ lst.addElement(elem); }
+    public void clearOverviewList(){lst.clear();}
+    public void setName(String nm){name.setText(nm);}
+
+
 
 }

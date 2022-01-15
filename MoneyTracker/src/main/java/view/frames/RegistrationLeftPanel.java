@@ -268,7 +268,7 @@ public class RegistrationLeftPanel extends JPanel {
         tadd.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE )) {
+                if(!(Character.isAlphabetic(c) || (Character.isDigit(c)) || (c==KeyEvent.VK_COMMA) || (c==KeyEvent.VK_SPACE) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE )) {
                     e.consume();  // ignore the event if it's not an alphabet
                 }
             }
