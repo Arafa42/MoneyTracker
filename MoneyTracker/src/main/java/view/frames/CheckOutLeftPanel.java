@@ -58,7 +58,6 @@ public class CheckOutLeftPanel extends JPanel {
         amnt = new JLabel("HAS TO RECEIVE FROM :");
         amnt.setSize(300,30);
 
-
         bill.add(ownerName);
         bill.add(amnt);
         bill.setLayout(new GridLayout(2,1));

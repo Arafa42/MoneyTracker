@@ -1,5 +1,4 @@
 package register_entry;
-
 import java.util.Calendar;
 
 public class RegisterEntry {

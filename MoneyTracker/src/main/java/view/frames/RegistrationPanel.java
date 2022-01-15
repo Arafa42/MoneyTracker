@@ -1,9 +1,6 @@
 package view.frames;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegistrationPanel extends JPanel {
     private RegistrationLeftPanel registrationLeftPanel;
@@ -17,6 +14,5 @@ public class RegistrationPanel extends JPanel {
         this.setLayout(new GridLayout(1,1));
         this.setVisible(true);
     }
-
 
 }

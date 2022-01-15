@@ -1,24 +1,9 @@
 package view.frames;
-
-import controller.TicketController;
-import controller.UserController;
-import database.DatabasePersons;
-import database.DatabaseTickets;
-import database.PersonsDB;
-import database.TicketsDB;
-import factory.FactoryProvider;
-import factory.ITicketFactory;
-import model.Ticket;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class MainPanel extends JPanel {
 
-    JButton createUser;
     public static MainRightPanel mainRightPanel;
     private MainLeftPanel mainLeftPanel;
 

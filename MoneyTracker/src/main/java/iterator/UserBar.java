@@ -1,16 +1,13 @@
 package iterator;
-
-
 import controller.UserController;
 import database.PersonsDB;
 import model.User;
-
 import java.util.List;
 
 public class UserBar {
 
-    private PersonsDB personsDB = PersonsDB.getInstance();
-    private UserController userController = new UserController(personsDB);
+    private final PersonsDB personsDB = PersonsDB.getInstance();
+    private final UserController userController = new UserController(personsDB);
     private List<User> userList = userController.getAllUsersSortedById();
     public UserBar(List<User> userList)
     {

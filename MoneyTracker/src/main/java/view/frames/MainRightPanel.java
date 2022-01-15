@@ -1,7 +1,5 @@
 package view.frames;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 public class MainRightPanel extends JPanel {
@@ -38,8 +36,5 @@ public class MainRightPanel extends JPanel {
     public void addElementToTicketList(String elem){ tcktlst.addElement(elem); }
     public void clearTicketList(){tcktlst.clear();}
     public void removeElementFromTicketList(Integer index){tcktlst.remove(index);}
-
-
-
 
 }

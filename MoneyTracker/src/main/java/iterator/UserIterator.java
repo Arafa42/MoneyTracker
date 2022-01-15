@@ -1,6 +1,5 @@
 package iterator;
 import model.User;
-
 import java.util.List;
 
 public class UserIterator implements Iterator{
@@ -22,10 +21,6 @@ public class UserIterator implements Iterator{
 
     public boolean hasNext()
     {
-        if (pos >= userList.size() ||
-                userList.get(pos) == null)
-            return false;
-        else
-            return true;
+        return pos < userList.size() && userList.get(pos) != null;
     }
 }

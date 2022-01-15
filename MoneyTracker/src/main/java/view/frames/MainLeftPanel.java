@@ -9,14 +9,12 @@ import helper.Calculator;
 import model.Ticket;
 import model.User;
 import view.ViewFrame;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -94,7 +92,6 @@ public class MainLeftPanel extends JPanel {
         even.setSelected(true);
         even.setSize(75, 20);
         even.setLocation(100, 140);
-        //even.addActionListener(this);
         this.add(even);
 
         uneven = new JRadioButton("uneven");
@@ -102,7 +99,6 @@ public class MainLeftPanel extends JPanel {
         uneven.setSelected(false);
         uneven.setSize(80, 20);
         uneven.setLocation(175, 140);
-        //uneven.addActionListener(this);
         this.add(uneven);
 
         gengp = new ButtonGroup();
@@ -202,7 +198,6 @@ public class MainLeftPanel extends JPanel {
                 }
             }
         });
-
     }
 
 
@@ -212,7 +207,7 @@ public class MainLeftPanel extends JPanel {
             Double totalAmnt = Double.parseDouble(tAmnt.getText());
             String name = ticketTypes.getSelectedItem().toString();
             User owner = userController.getAllUsersSortedById().get(MainPanel.mainRightPanel.userList.getSelectedIndex());
-            Boolean isEven = true;
+            boolean isEven = true;
             HashMap<User,Double>  hashmap = new HashMap<User,Double>();
             Ticket ticket = null;
 
@@ -222,10 +217,10 @@ public class MainLeftPanel extends JPanel {
                 ViewFrame.disableTab(0);
             }
             else{
+
                 Double sum = 0.0;
-                for(int i=0;i<textFields.size();i++){
-                    sum += Double.parseDouble(textFields.get(i).getText());
-                }
+
+                for (JTextField textField : textFields) { sum += Double.parseDouble(textField.getText()); }
 
                 if(sum.equals(totalAmnt)) {
                     isEven = false;
@@ -242,8 +237,6 @@ public class MainLeftPanel extends JPanel {
 
             }
 
-
-            System.out.println(ticketController.getAllTicketsSortedById());
             MainPanel.mainRightPanel.clearTicketList();
             for(int i =0;i<ticketController.getAllTickets().size();i++){
                 MainPanel.mainRightPanel.addElementToTicketList(ticketController.getAllTickets().get(i).getOwner().toString());
@@ -253,7 +246,7 @@ public class MainLeftPanel extends JPanel {
 
     public void removeTicketButtonActionListener(){
         this.delUser.addActionListener(listener ->{
-            Integer s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
+            int s =  MainPanel.mainRightPanel.ticketList.getSelectedIndex();
             ticketController.deleteTicketById(s);
             deleteTicketList(s);
         });
@@ -272,20 +265,16 @@ public class MainLeftPanel extends JPanel {
                 }
                 ViewFrame.switchFromTab(2);
                 ViewFrame.disableTab(1);
-
             }
-            });
+        });
     }
 
     public void resetBtnActionListener(){
         this.reset.addActionListener(listeenr->{
             tAmnt.setText("");
-            for(int i=0;i<textFields.size();i++) {
-                textFields.get(i).setText("");
-            }
+            for (JTextField textField : textFields) { textField.setText(""); }
         });
     }
-
 
     public void evenButtonActionListener(){
         this.even.addActionListener(listener ->{
@@ -307,7 +296,7 @@ public class MainLeftPanel extends JPanel {
         rowCount++;
         pne.removeAll();
         pne.setLayout(new GridLayout(userController.getAllUsersSortedById().size(),1,5,5));
-        Integer ypos = 170;
+        int ypos = 170;
         for(int i=0;i<userController.getAllUsersSortedById().size();i++){
             j = new JTextField();
             l = new JLabel();

@@ -15,8 +15,6 @@ public class UserCreationObserver implements Observer {
         User user = (User) arg;
         String nameUser = user.getName();
         RegisterEntry registerEntry = PersonsDB.getInstance().getEntry((User) arg);
-
         System.out.println("Name: "+ nameUser +", and entry: "+ registerEntry);
-        //System.out.println("OBSERVED USER CREATED");
     }
 }

@@ -1,17 +1,8 @@
-import controller.TicketController;
 import controller.UserController;
 import database.DatabasePersons;
 import database.PersonsDB;
-import database.TicketsDB;
-import iterator.UserBar;
-import model.Ticket;
-import model.User;
 import observers.UserCreationObserver;
 import view.ViewFrame;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,10 +24,6 @@ public class Main {
 
         UserCreationObserver userCreationObserver = new UserCreationObserver();
         personsDB.addObserver(userCreationObserver);
-
-
-
-
 
     }
 }

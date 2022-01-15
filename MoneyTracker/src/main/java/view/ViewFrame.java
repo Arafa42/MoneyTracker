@@ -1,9 +1,7 @@
 package view;
-
 import view.frames.CheckOutPanel;
 import view.frames.MainPanel;
 import view.frames.RegistrationPanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +11,6 @@ public class ViewFrame extends JFrame {
     protected RegistrationPanel registrationPanel;
     private CheckOutPanel checkOutPanel;
     static JTabbedPane tabbedPane = new JTabbedPane();
-
 
     public ViewFrame(){super("MoneyTracker");}
 
@@ -40,11 +37,9 @@ public class ViewFrame extends JFrame {
     public static void disableTab(int index){
         tabbedPane.setEnabledAt(index,false);
     }
-
     public static void switchFromTab(int index){
         tabbedPane.setSelectedIndex(index);
     }
-
     public void switchPanels(){
         this.removeAll();
     }

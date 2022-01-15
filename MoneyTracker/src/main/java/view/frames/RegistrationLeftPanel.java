@@ -1,12 +1,9 @@
 package view.frames;
-
-import com.sun.tools.javac.Main;
 import controller.UserController;
 import database.DatabasePersons;
 import database.PersonsDB;
 import iterator.UserBar;
 import model.User;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -14,7 +11,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationLeftPanel extends JPanel {
@@ -287,7 +283,6 @@ public class RegistrationLeftPanel extends JPanel {
             String address = tadd.getText();
             User user = new User(name,surname,birthday,gender,address,0.0);
             userController.addUser(user);
-            System.out.println(userController.getAllUsersSortedById());
             updateUserList();
             resetForm();
         });
@@ -297,23 +292,15 @@ public class RegistrationLeftPanel extends JPanel {
         this.delUser.addActionListener(listener ->{
            Integer s =  RegistrationPanel.registrationRightPanel.userList.getSelectedIndex();
            userController.deleteUserById(s);
-           System.out.println(userController.getAllUsersSortedById());
             DeleteUserList(s);
         });
     }
 
-
     public void resetFormButtonActionListener(){
         this.reset.addActionListener(listener -> {
             resetForm();
-            List<User> userList = userController.getAllUsersSortedById();
-            UserBar ub = new UserBar(userList);
-            ub.printNotifications();
         });
     }
-
-
-
 
     public void DeleteUserList(Integer index){
         RegistrationPanel.registrationRightPanel.removeElementFromList(index);
@@ -337,8 +324,5 @@ public class RegistrationLeftPanel extends JPanel {
         tsurnameNotEmpty = false;
         taddNotEmpty = false;
     }
-
-
-
 
 }

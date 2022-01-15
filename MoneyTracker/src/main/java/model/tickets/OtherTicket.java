@@ -1,5 +1,4 @@
 package model.tickets;
-
 import model.Ticket;
 
 public class OtherTicket extends Ticket {

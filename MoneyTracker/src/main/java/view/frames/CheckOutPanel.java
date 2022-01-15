@@ -1,5 +1,4 @@
 package view.frames;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +13,6 @@ public class CheckOutPanel extends JPanel {
 
         this.add(checkOutLeftPanel);
         this.add(checkOutRightPanel);
-
 
         this.setLayout(new GridLayout(1,1));
         this.setVisible(true);

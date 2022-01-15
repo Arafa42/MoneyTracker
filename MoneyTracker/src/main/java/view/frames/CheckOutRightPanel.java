@@ -10,10 +10,8 @@ import java.awt.*;
 public class CheckOutRightPanel extends JPanel {
 
     protected JList userList;
-    protected JList billList;
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private DefaultListModel<String> tcktlst = new DefaultListModel<>();
-    private JScrollPane scrollPane2;
     private JScrollPane scrollPane;
     private BillsDB billsDB = BillsDB.getInstance();
     private BillController billController = new BillController(billsDB);
@@ -24,7 +22,6 @@ public class CheckOutRightPanel extends JPanel {
         userList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                System.out.println(userList.getSelectedIndex());
                 String owner = billController.getAllBillsSortedById().get(userList.getSelectedIndex()).getOwnerName();
                 CheckOutPanel.checkOutLeftPanel.setName(owner);
                 CheckOutPanel.checkOutLeftPanel.clearOverviewList();
@@ -43,12 +40,6 @@ public class CheckOutRightPanel extends JPanel {
     }
 
     public void addElementToUserList(String elem){ lst.addElement(elem); }
-    public void removeElementFromList(Integer index){lst.remove(index);}
-    public void addElementToTicketList(String elem){ tcktlst.addElement(elem); }
-    public void clearTicketList(){tcktlst.clear();}
-    public void clearUserList(){lst.clear();}
-    public void removeElementFromTicketList(Integer index){tcktlst.remove(index);}
-
 
     public String removeFirstandLast(String str)
     {
