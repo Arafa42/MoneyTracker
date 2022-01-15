@@ -43,5 +43,4 @@ public class TicketController implements ITicket{
         return database.deleteAllTickets();
     }
 
-
 }

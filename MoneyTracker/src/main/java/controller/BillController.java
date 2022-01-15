@@ -2,7 +2,6 @@ package controller;
 import database.DatabaseBills;
 import model.Bill;
 import register_entry.RegisterEntry;
-
 import java.util.List;
 
 public class BillController implements IBill{
