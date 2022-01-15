@@ -1,5 +1,4 @@
 package factory;
-
 import model.Ticket;
 
 public interface ITicketFactory {

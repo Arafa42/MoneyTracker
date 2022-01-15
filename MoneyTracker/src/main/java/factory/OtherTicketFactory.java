@@ -1,5 +1,4 @@
 package factory;
-
 import model.Ticket;
 import model.tickets.OtherTicket;
 
