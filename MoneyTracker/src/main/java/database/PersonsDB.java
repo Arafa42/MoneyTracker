@@ -7,11 +7,11 @@ import java.util.*;
 public class PersonsDB extends DatabasePersons{
 
     private final HashMap<User, RegisterEntry> database;
-    private static PersonsDB singletonijn;
+    private static PersonsDB singleton;
 
     public static PersonsDB getInstance(){
-        if(singletonijn == null){ singletonijn = new PersonsDB(); }
-        return singletonijn;
+        if(singleton == null){ singleton = new PersonsDB(); }
+        return singleton;
     }
 
     public PersonsDB() {

@@ -6,11 +6,11 @@ import java.util.*;
 
 public class TicketsDB extends DatabaseTickets{
     private  HashMap<Ticket, RegisterEntry> database;
-    private static TicketsDB singletonijn;
+    private static TicketsDB singleton;
 
     public static TicketsDB getInstance(){
-        if(singletonijn == null){ singletonijn = new TicketsDB(); }
-        return singletonijn;
+        if(singleton == null){ singleton = new TicketsDB(); }
+        return singleton;
     }
 
     public TicketsDB() { this.database = new HashMap<>(); }

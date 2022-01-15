@@ -7,11 +7,11 @@ import java.util.*;
 public class BillsDB extends DatabaseBills{
 
     private final HashMap<Bill, RegisterEntry> database;
-    private static BillsDB singletonijn;
+    private static BillsDB singleton;
 
     public static BillsDB getInstance(){
-        if(singletonijn == null){ singletonijn = new BillsDB(); }
-        return singletonijn;
+        if(singleton == null){ singleton = new BillsDB(); }
+        return singleton;
     }
 
     public BillsDB() {
