@@ -5,8 +5,8 @@ import register_entry.RegisterEntry;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-// Jens heeft gekeken en vondt het in orde omdit tegebruiken!
-    // propertychangelistener
+// Jens heeft gekeken en vond het in orde om dit te gebruiken!
+// propertychangelistener
 public class BillObserver implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

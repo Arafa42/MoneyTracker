@@ -1,5 +1,6 @@
 package database;
 import model.Ticket;
+import model.User;
 import register_entry.RegisterEntry;
 import java.util.List;
 import java.util.Observable;

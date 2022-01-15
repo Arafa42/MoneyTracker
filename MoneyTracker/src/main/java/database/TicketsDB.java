@@ -5,7 +5,7 @@ import register_entry.RegisterEntryNull;
 import java.util.*;
 
 public class TicketsDB extends DatabaseTickets{
-    private final HashMap<Ticket, RegisterEntry> database;
+    private  HashMap<Ticket, RegisterEntry> database;
     private static TicketsDB singletonijn;
 
     public static TicketsDB getInstance(){
