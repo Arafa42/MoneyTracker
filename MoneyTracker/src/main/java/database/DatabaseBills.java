@@ -1,6 +1,5 @@
 package database;
 import model.Bill;
-import model.User;
 import register_entry.RegisterEntry;
 import java.util.List;
 import java.util.Observable;

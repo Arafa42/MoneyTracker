@@ -5,7 +5,7 @@ import register_entry.RegisterEntryNull;
 import java.util.*;
 
 public class TicketsDB extends DatabaseTickets{
-    private HashMap<Ticket, RegisterEntry> database;
+    private final HashMap<Ticket, RegisterEntry> database;
     private static TicketsDB singletonijn;
 
     public static TicketsDB getInstance(){
@@ -46,9 +46,11 @@ public class TicketsDB extends DatabaseTickets{
         List<Ticket> ticketList = sortJsonArr();
         ticketList.remove(id);
         database.clear();
-        for(int i =0;i<ticketList.size();i++) { database.put(ticketList.get(i), re); }
+        for (Ticket ticket : ticketList) {
+            database.put(ticket, re);
+        }
         setChanged();
-        System.out.println("tickk : " + database.keySet());
+        System.out.println("delete ticket : " + database.keySet());
     }
 
     @Override

@@ -1,10 +1,7 @@
 package database;
-
 import model.Bill;
-import model.User;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
-
 import java.util.*;
 
 public class BillsDB extends DatabaseBills{
@@ -44,7 +41,9 @@ public class BillsDB extends DatabaseBills{
         List<Bill> billList = sortJsonArr();
         billList.remove(id);
         database.clear();
-        for(int i =0;i<billList.size();i++) { database.put(billList.get(i), re); }
+        for (Bill bill : billList) {
+            database.put(bill, re);
+        }
         setChanged();
         System.out.println("bill : " + database.keySet());
     }
@@ -52,7 +51,11 @@ public class BillsDB extends DatabaseBills{
     @Override
     public Bill getBillByOwnerName(String name) {
         ArrayList<Bill> billsList = new ArrayList<>(database.keySet());
-        for(int i =0;i<billsList.size();i++){ if(billsList.get(i).getOwnerName().equals(name)){ return billsList.get(i); } }
+        for (Bill bill : billsList) {
+            if (bill.getOwnerName().equals(name)) {
+                return bill;
+            }
+        }
         return null;
     }
 
