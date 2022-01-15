@@ -39,5 +39,5 @@ public class RegistrationDB_Tests {
         Assert.assertEquals(dbSize,0);
     }
 
-    
+
 }
