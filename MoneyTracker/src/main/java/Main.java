@@ -1,6 +1,7 @@
 import controller.UserController;
-import database.DatabasePersons;
-import database.PersonsDB;
+import database.*;
+import observers.BillObserver;
+import observers.TicketObserver;
 import observers.UserCreationObserver;
 import view.ViewFrame;
 
@@ -17,6 +18,8 @@ public class Main {
 
         //CREATE PERSONS
         DatabasePersons personsDB = PersonsDB.getInstance();
+        DatabaseTickets ticketsDB = TicketsDB.getInstance();
+        DatabaseBills billsDB = BillsDB.getInstance();
         UserController userController = new UserController(personsDB);
 
         ViewFrame frame = new ViewFrame();
@@ -24,6 +27,12 @@ public class Main {
 
         UserCreationObserver userCreationObserver = new UserCreationObserver();
         personsDB.addObserver(userCreationObserver);
+
+        TicketObserver ticketObserver = new TicketObserver();
+        ticketsDB.addObserver(ticketObserver);
+
+
+
 
     }
 }
