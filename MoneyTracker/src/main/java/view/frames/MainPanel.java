@@ -5,7 +5,7 @@ import java.awt.*;
 public class MainPanel extends JPanel {
 
     public static MainRightPanel mainRightPanel;
-    private MainLeftPanel mainLeftPanel;
+    public static MainLeftPanel mainLeftPanel;
 
     public MainPanel(){
         mainRightPanel = new MainRightPanel();

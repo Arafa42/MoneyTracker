@@ -34,6 +34,6 @@ public class CheckOutRightPanel extends JPanel {
     }
 
     public void addElementToUserList(String elem){ lst.addElement(elem); }
-
+    public void clearUserList(){userList.clearSelection();lst.clear();}
 
 }

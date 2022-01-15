@@ -13,5 +13,6 @@ public abstract class DatabaseBills extends Observable {
     public abstract void deleteBillById(int id, RegisterEntry re);
     public abstract Bill getBillByOwnerName(String name);
     public abstract List<Bill> sortJsonArr();
+    public abstract void clear();
 
 }

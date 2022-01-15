@@ -232,7 +232,7 @@ public class MainLeftPanel extends JPanel {
     }
 
     public void resetBtnActionListener(){
-        this.reset.addActionListener(listeenr->{
+        this.reset.addActionListener(listener->{
             tAmnt.setText("");
             for (JTextField textField : textFields) { textField.setText(""); }
         });
@@ -279,5 +279,6 @@ public class MainLeftPanel extends JPanel {
     public void deleteTicketList(Integer index){
         MainPanel.mainRightPanel.removeElementFromTicketList(index);
     }
+    public void resetFrm(){tAmnt.setText("");for (JTextField textField : textFields) { textField.setText(""); }}
 
 }

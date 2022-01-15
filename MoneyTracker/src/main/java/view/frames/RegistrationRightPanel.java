@@ -20,4 +20,5 @@ public class RegistrationRightPanel extends JPanel {
 
     public void addElementToList(String elem){ lst.addElement(elem); }
     public void removeElementFromList(Integer index){lst.remove(index);}
+    public void clearUserList(){userList.clearSelection(); revalidate(); repaint(); lst.clear();}
 }

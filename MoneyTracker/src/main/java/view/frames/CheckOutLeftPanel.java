@@ -1,6 +1,8 @@
 package view.frames;
 import controller.BillController;
 import database.BillsDB;
+import view.GuiHandler.CheckOutLeftPanelHandler;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -18,6 +20,7 @@ public class CheckOutLeftPanel extends JPanel {
     private JList userList;
     private DefaultListModel<String> lst = new DefaultListModel<>();
     private JScrollPane scrollPane;
+    CheckOutLeftPanelHandler checkOutLeftPanelHandler = new CheckOutLeftPanelHandler();
 
     public CheckOutLeftPanel(){
         this.setLayout(null);
@@ -69,13 +72,20 @@ public class CheckOutLeftPanel extends JPanel {
         payButton.setSize(90,20);
         this.add(payButton);
 
+        payButtonListener();
+
         this.setVisible(true);
     }
 
     public void addElementToOverview(String elem){ lst.addElement(elem); }
     public void clearOverviewList(){lst.clear();}
+    public void clearName(){name.setText("");}
     public void setName(String nm){name.setText(nm);}
 
-
+    public void payButtonListener(){
+        payButton.addActionListener(listener->{
+            checkOutLeftPanelHandler.PayButtonListener();
+        });
+    }
 
 }

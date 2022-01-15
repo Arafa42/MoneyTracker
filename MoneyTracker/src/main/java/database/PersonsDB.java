@@ -71,4 +71,9 @@ public class PersonsDB extends DatabasePersons{
         Collections.sort(userlist, comparator);
         return userlist;
     }
+
+    @Override
+    public void clear() {
+        database.clear();
+    }
 }

@@ -13,4 +13,5 @@ public abstract class DatabaseTickets extends Observable {
     public abstract String deleteAllTickets();
     public abstract void deleteTicketById(int id, RegisterEntry re);
     public abstract List<Ticket> sortJsonArr();
+    public abstract void clear();
 }

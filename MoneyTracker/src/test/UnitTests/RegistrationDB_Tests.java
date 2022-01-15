@@ -1,5 +1,4 @@
 package UnitTests;
-
 import controller.UserController;
 import database.DatabasePersons;
 import database.PersonsDB;

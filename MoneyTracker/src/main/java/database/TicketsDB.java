@@ -65,4 +65,9 @@ public class TicketsDB extends DatabaseTickets{
         Collections.sort(ticketList, comparator);
         return ticketList;
     }
+
+    @Override
+    public void clear() {
+        database.clear();
+    }
 }

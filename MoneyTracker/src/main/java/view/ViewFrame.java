@@ -40,6 +40,7 @@ public class ViewFrame extends JFrame {
     public static void switchFromTab(int index){
         tabbedPane.setSelectedIndex(index);
     }
+    public static void enableTab(int index){tabbedPane.setEnabledAt(index,true);}
     public void switchPanels(){
         this.removeAll();
     }

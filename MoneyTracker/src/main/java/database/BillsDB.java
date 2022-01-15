@@ -71,4 +71,9 @@ public class BillsDB extends DatabaseBills{
         Collections.sort(billList, comparator);
         return billList;
     }
+
+    @Override
+    public void clear() {
+        database.clear();
+    }
 }
