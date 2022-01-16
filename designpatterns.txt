@@ -2,4 +2,4 @@ singleton database
 observer updaten van iedereen zijn ticket in zelfde poll
 factory type ticket
 MVC = database, gebruiker en acties van gebruikers
-COMMAND = iedereen betaald dit amount
+Iterator
