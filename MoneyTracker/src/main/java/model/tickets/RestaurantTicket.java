@@ -1,8 +1,6 @@
 package model.tickets;
-
 import model.Ticket;
 import model.User;
-
 import java.util.HashMap;
 
 public class RestaurantTicket extends Ticket {

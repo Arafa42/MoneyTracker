@@ -1,28 +1,22 @@
 package database;
-
-import com.sun.jdi.Value;
 import model.User;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
-
 import java.util.*;
 
 public class PersonsDB extends DatabasePersons{
 
     private final HashMap<User, RegisterEntry> database;
-    private static PersonsDB singletonijn;
-
+    private static PersonsDB singleton;
 
     public static PersonsDB getInstance(){
-        if(singletonijn == null){ singletonijn = new PersonsDB(); }
-        return singletonijn;
+        if(singleton == null){ singleton = new PersonsDB(); }
+        return singleton;
     }
-
 
     public PersonsDB() {
         this.database = new HashMap<>();
     }
-
 
     @Override
     public void addEntry(User user, RegisterEntry re) {
@@ -44,16 +38,25 @@ public class PersonsDB extends DatabasePersons{
 
     @Override
     public void deleteUserById(int id,RegisterEntry re) {
-
         List<User> userList = sortJsonArr();
         userList.remove(id);
         database.clear();
-        for(int i =0;i<userList.size();i++) {
-            database.put(userList.get(i), re);
+        for (User user : userList) {
+            database.put(user, re);
         }
         setChanged();
-        System.out.println("dekk : " + database.keySet());
+        System.out.println("delUser : " + database.keySet());
+    }
 
+    @Override
+    public User getUserByName(String name) {
+        ArrayList<User> userList = new ArrayList<>(database.keySet());
+        for (User user : userList) {
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -69,4 +72,8 @@ public class PersonsDB extends DatabasePersons{
         return userlist;
     }
 
+    @Override
+    public void clear() {
+        database.clear();
+    }
 }

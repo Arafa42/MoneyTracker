@@ -3,8 +3,10 @@ import database.DatabasePersons;
 import model.User;
 import register_entry.RegisterEntry;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class UserController implements IUser{
+public class UserController implements IUser, Observer {
 
     private DatabasePersons database;
     public static Integer id = 0;
@@ -32,10 +34,21 @@ public class UserController implements IUser{
     }
 
     @Override
+    public User getUserByName(String name) { return database.getUserByName(name); }
+
+    @Override
     public void deleteUserById(int id) {
         RegisterEntry registerEntry = new RegisterEntry(false);
         database.deleteUserById(id,registerEntry);
     }
 
+    @Override
+    public void update(Observable o, Object arg) { System.out.println("Usercontroller observer blabla"); }
+
+
+//    public Iterator createIterator()
+//    {
+//        return new UserIterator(database.sortJsonArr());
+//    }
 
 }

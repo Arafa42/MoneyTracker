@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ticket {
@@ -6,8 +7,11 @@ public class Ticket {
     private Double totalAmount;
     private String name;
     private User owner;
+    private User paidByUser;
+    private ArrayList<User> users;
     private Boolean splitEven;
     private HashMap<User,Double> unevenSplitAmount;
+    private Integer id;
 
     public Ticket(Double totalAmount, String name, User owner, Boolean splitEven, HashMap<User,Double> unevenSplitAmount){
         this.totalAmount = totalAmount;
@@ -15,7 +19,17 @@ public class Ticket {
         this.owner = owner;
         this.splitEven = splitEven;
         this.unevenSplitAmount = unevenSplitAmount;
+        this.paidByUser = getPaidBy();
     }
+
+    public Ticket(Double totalAmount, String name, User owner, Boolean splitEven){
+        this.totalAmount = totalAmount;
+        this.name = name;
+        this.owner = owner;
+        this.splitEven = splitEven;
+    }
+
+
 
     public Ticket() {
 
@@ -25,6 +39,8 @@ public class Ticket {
         this.name = name;
     }
 
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
     public Double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
     public String getName() { return name; }
@@ -35,7 +51,8 @@ public class Ticket {
     public void setSplitEven(Boolean splitEven) { this.splitEven = splitEven; }
     public HashMap<User,Double> getUnevenSplitAmount() { return unevenSplitAmount; }
     public void setUnevenSplitAmount(HashMap<User,Double> unevenSplitAmount) { this.unevenSplitAmount = unevenSplitAmount; }
-
+    public User getPaidBy() {return paidByUser;}
+    public ArrayList getPaidFor() {return getPaidFor();}
     @Override
     public String toString() {
         return "Ticket{" +
@@ -44,7 +61,7 @@ public class Ticket {
                 ", owner=" + owner +
                 ", splitEven=" + splitEven +
                 ", unevenSplitAmount=" + unevenSplitAmount +
+                ", id=" + id +
                 '}';
     }
-
 }
